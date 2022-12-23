@@ -1,10 +1,10 @@
-import 'dart:convert';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/constants.dart';
+import 'package:my_portfolio/icons/CustomIcon.dart';
 import 'package:my_portfolio/widgets/project_box.dart';
 import 'package:my_portfolio/widgets/skill_box.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../controllers/hovers_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,8 +15,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void urlLauncher(String url) async {
+    //  const url = 'https:/github.com/AyushKrSingh000';
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   final _formKey = GlobalKey<FormState>();
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       _controller.animateTo(
                         0,
-                        duration: Duration(seconds: 1),
+                        duration: const Duration(seconds: 1),
                         curve: Curves.fastOutSlowIn,
                       );
                     },
@@ -74,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       _controller.animateTo(
                         600,
-                        duration: Duration(seconds: 1),
+                        duration: const Duration(seconds: 1),
                         curve: Curves.fastOutSlowIn,
                       );
                     },
@@ -97,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       _controller.animateTo(
                         1600,
-                        duration: Duration(seconds: 1),
+                        duration: const Duration(seconds: 1),
                         curve: Curves.fastOutSlowIn,
                       );
                     },
@@ -120,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       _controller.animateTo(
                         1600 + MediaQuery.of(context).size.width * 1.6,
-                        duration: Duration(seconds: 1),
+                        duration: const Duration(seconds: 1),
                         curve: Curves.fastOutSlowIn,
                       );
                     },
@@ -152,36 +162,131 @@ class _HomePageState extends State<HomePage> {
               child: Row(children: [
                 Card(
                   color: Colors.white,
+                  elevation: 20,
                   child: SizedBox(
                     height: 200,
-                    width: 40,
+                    width: 45,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Icon(Icons.home_filled),
-                          Icon(Icons.contacts),
-                          Icon(Icons.person),
-                          Icon(Icons.settings),
-                          Icon(Icons.help),
+                        children: [
+                          InkWell(
+                              hoverColor: Colors.amber.withOpacity(0.5),
+                              onTap: () {
+                                urlLauncher(
+                                    'https:/github.com/AyushKrSingh000');
+                              },
+                              child: const SizedBox(
+                                  height: 50,
+                                  width: 45,
+                                  child: Icon(MyIcon.github))),
+                          InkWell(
+                              hoverColor: Colors.amber.withOpacity(0.5),
+                              onTap: () {
+                                urlLauncher(
+                                    'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
+                              },
+                              child: const SizedBox(
+                                  height: 50,
+                                  width: 45,
+                                  child: Icon(MyIcon.linkedin))),
+                          InkWell(
+                              hoverColor: Colors.amber.withOpacity(0.5),
+                              onTap: () {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                        backgroundColor: Colors.amber,
+                                        content: Text(
+                                          'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                          style: TextStyle(
+                                            color: kBlackColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )));
+                              },
+                              child: const SizedBox(
+                                  height: 50,
+                                  width: 45,
+                                  child: Icon(MyIcon.gmail))),
+                          InkWell(
+                              hoverColor: Colors.amber.withOpacity(0.5),
+                              onTap: () {
+                                urlLauncher(
+                                    'https://www.instagram.com/ayush_kr.singh/');
+                              },
+                              child: const SizedBox(
+                                  height: 50,
+                                  width: 45,
+                                  child: Icon(MyIcon.instagram_square))),
                         ]),
                   ),
                 ),
                 SizedBox(
-                    width: MediaQuery.of(context).size.width - 50,
+                    width: MediaQuery.of(context).size.width - 60,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(
                           height: 50,
                         ),
-                        const Text(
-                          "I'M AYUSH KUMAR SINGH",
-                          style: TextStyle(
-                              color: kBlacColor,
-                              fontSize: 50,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                        AnimatedTextKit(
+                          animatedTexts: [
+                            TypewriterAnimatedText(
+                              'Hello Hi there!',
+                              textStyle: const TextStyle(
+                                  color: kBlacColor,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              speed: const Duration(milliseconds: 110),
+                            ),
+                            TypewriterAnimatedText(
+                              "I'M AYUSH KUMAR SINGH",
+                              textStyle: const TextStyle(
+                                  color: kBlacColor,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              speed: const Duration(milliseconds: 110),
+                            ),
+                            TypewriterAnimatedText(
+                              'A PASSIONATE APP DEVELOPER FROM INDIA',
+                              textStyle: const TextStyle(
+                                  color: kBlacColor,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              speed: const Duration(milliseconds: 110),
+                            ),
+                            TypewriterAnimatedText(
+                              'I LOVE CODING',
+                              textStyle: const TextStyle(
+                                  color: kBlacColor,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                              speed: const Duration(milliseconds: 110),
+                            ),
+                            TypewriterAnimatedText('AND DEVELOPING APPS',
+                                textStyle: const TextStyle(
+                                    color: kBlacColor,
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                                speed: const Duration(milliseconds: 110),
+                                cursor: '!'),
+                          ],
+                          repeatForever: true,
+                          pause: const Duration(milliseconds: 2700),
+                          displayFullTextOnTap: true,
+                          stopPauseOnTap: true,
                         ),
+                        const SizedBox(
+                            width: 50,
+                            child: Divider(
+                              thickness: 4,
+                              color: kHoverColor,
+                            )),
                         const SizedBox(
                           height: 30,
                         ),
@@ -201,11 +306,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                minimumSize: Size(250, 60)),
+                                minimumSize: const Size(250, 60)),
                             onPressed: () {
                               _controller.animateTo(
                                 1600,
-                                duration: Duration(seconds: 1),
+                                duration: const Duration(seconds: 1),
                                 curve: Curves.fastOutSlowIn,
                               );
                             },
@@ -236,6 +341,12 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(
+                      width: 50,
+                      child: Divider(
+                        thickness: 4,
+                        color: kHoverColor,
+                      )),
                   const SizedBox(
                     height: 30,
                   ),
@@ -371,6 +482,12 @@ class _HomePageState extends State<HomePage> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
+                          width: 50,
+                          child: Divider(
+                            thickness: 4,
+                            color: kHoverColor,
+                          )),
+                      const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
@@ -435,6 +552,12 @@ class _HomePageState extends State<HomePage> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
+                          width: 50,
+                          child: Divider(
+                            thickness: 4,
+                            color: kHoverColor,
+                          )),
+                      const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
@@ -482,6 +605,7 @@ class _HomePageState extends State<HomePage> {
                                           if (value!.isEmpty) {
                                             return "Please Enter Your Name";
                                           }
+                                          return null;
                                         },
                                         cursorColor: Colors.black,
                                         decoration: InputDecoration(
@@ -523,6 +647,7 @@ class _HomePageState extends State<HomePage> {
                                           if (value!.isEmpty) {
                                             return "Please Enter Your Email";
                                           }
+                                          return null;
                                         },
                                         cursorColor: Colors.black,
                                         decoration: InputDecoration(
@@ -563,6 +688,7 @@ class _HomePageState extends State<HomePage> {
                                           if (value!.isEmpty) {
                                             return "Please Write Some Message";
                                           }
+                                          return null;
                                         },
                                         keyboardType: TextInputType.multiline,
                                         maxLines: 10,
@@ -687,42 +813,65 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 30,
                             ),
-                            Row(
-                              children: const [
-                                Icon(
-                                  Icons.message,
-                                  color: kWhiteColor,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Icon(
-                                  Icons.home,
-                                  color: kWhiteColor,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Icon(
-                                  Icons.person,
-                                  color: kWhiteColor,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Icon(
-                                  Icons.home,
-                                  color: kWhiteColor,
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Icon(
-                                  Icons.home,
-                                  color: kWhiteColor,
-                                ),
-                              ],
-                            ),
+                            Row(children: [
+                              InkWell(
+                                  onTap: () {
+                                    urlLauncher(
+                                        'https:/github.com/AyushKrSingh000');
+                                  },
+                                  child: const SizedBox(
+                                      height: 50,
+                                      width: 45,
+                                      child: Icon(
+                                        MyIcon.github,
+                                        color: kWhiteColor,
+                                      ))),
+                              InkWell(
+                                  onTap: () {
+                                    urlLauncher(
+                                        'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
+                                  },
+                                  child: const SizedBox(
+                                      height: 50,
+                                      width: 45,
+                                      child: Icon(
+                                        MyIcon.linkedin,
+                                        color: kWhiteColor,
+                                      ))),
+                              InkWell(
+                                  onTap: () {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                            backgroundColor: Colors.amber,
+                                            content: Text(
+                                              'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                              style: TextStyle(
+                                                color: kBlackColor,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )));
+                                  },
+                                  child: const SizedBox(
+                                      height: 50,
+                                      width: 45,
+                                      child: Icon(
+                                        MyIcon.gmail,
+                                        color: kWhiteColor,
+                                      ))),
+                              InkWell(
+                                  onTap: () {
+                                    urlLauncher(
+                                        'https://www.instagram.com/ayush_kr.singh/');
+                                  },
+                                  child: const SizedBox(
+                                      height: 50,
+                                      width: 45,
+                                      child: Icon(
+                                        MyIcon.instagram_square,
+                                        color: kWhiteColor,
+                                      ))),
+                            ]),
                           ],
                         ),
                       ],
