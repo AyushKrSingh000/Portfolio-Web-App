@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/widgets/project_box.dart';
@@ -14,10 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
+  ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color.fromRGBO(244, 244, 244, 1),
+      //AppBar
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: kWhiteColor,
@@ -44,12 +47,21 @@ class _HomePageState extends State<HomePage> {
             children: [
               HoverBuilder(
                 builder: (isHovered) {
-                  return Text(
-                    "HOME",
-                    style: TextStyle(
-                        color: isHovered ? kHoverColor : kBlackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: fontsize),
+                  return InkWell(
+                    onTap: () {
+                      _controller.animateTo(
+                        0,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    },
+                    child: Text(
+                      "HOME",
+                      style: TextStyle(
+                          color: isHovered ? kHoverColor : kBlackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: fontsize),
+                    ),
                   );
                 },
               ),
@@ -58,12 +70,21 @@ class _HomePageState extends State<HomePage> {
               ),
               HoverBuilder(
                 builder: (isHovered) {
-                  return Text(
-                    "ABOUT",
-                    style: TextStyle(
-                        color: isHovered ? kHoverColor : kBlackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: fontsize),
+                  return InkWell(
+                    onTap: () {
+                      _controller.animateTo(
+                        600,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    },
+                    child: Text(
+                      "ABOUT",
+                      style: TextStyle(
+                          color: isHovered ? kHoverColor : kBlackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: fontsize),
+                    ),
                   );
                 },
               ),
@@ -72,12 +93,21 @@ class _HomePageState extends State<HomePage> {
               ),
               HoverBuilder(
                 builder: (isHovered) {
-                  return Text(
-                    "PROJECTS",
-                    style: TextStyle(
-                        color: isHovered ? kHoverColor : kBlackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: fontsize),
+                  return InkWell(
+                    onTap: () {
+                      _controller.animateTo(
+                        1600,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    },
+                    child: Text(
+                      "PROJECTS",
+                      style: TextStyle(
+                          color: isHovered ? kHoverColor : kBlackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: fontsize),
+                    ),
                   );
                 },
               ),
@@ -86,12 +116,21 @@ class _HomePageState extends State<HomePage> {
               ),
               HoverBuilder(
                 builder: (isHovered) {
-                  return Text(
-                    "CONTACTS",
-                    style: TextStyle(
-                        color: isHovered ? kHoverColor : kBlackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: fontsize),
+                  return InkWell(
+                    onTap: () {
+                      _controller.animateTo(
+                        1600 + MediaQuery.of(context).size.width * 1.6,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                      );
+                    },
+                    child: Text(
+                      "CONTACTS",
+                      style: TextStyle(
+                          color: isHovered ? kHoverColor : kBlackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: fontsize),
+                    ),
                   );
                 },
               ),
@@ -103,6 +142,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SingleChildScrollView(
+        controller: _controller,
         child: Column(
           children: [
             //Home Section
@@ -162,7 +202,13 @@ class _HomePageState extends State<HomePage> {
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 minimumSize: Size(250, 60)),
-                            onPressed: () {},
+                            onPressed: () {
+                              _controller.animateTo(
+                                1600,
+                                duration: Duration(seconds: 1),
+                                curve: Curves.fastOutSlowIn,
+                              );
+                            },
                             child: const Text(
                               "PROJECTS",
                               style: TextStyle(
@@ -358,27 +404,27 @@ class _HomePageState extends State<HomePage> {
                       ProjectBoxHorizontal(
                           imageName: 'expense2.png',
                           title: "Expense Tracker App",
-                          info: projects[0]),
+                          info: projects[2]),
                       const SizedBox(
                         height: 20,
                       ),
                       ProjectBoxHorizontal(
                           imageName: 'event2.png',
                           title: "Event Invite System",
-                          info: projects[2]),
+                          info: projects[3]),
                     ],
                   )),
             ),
             //Contact Us
             SizedBox(
-              height: 1500,
+              height: 950,
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       const Text(
                         "CONTACT",
@@ -405,166 +451,180 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 40,
                       ),
-                      Card(
-                        color: Colors.white,
-                        elevation: 5,
-                        child: SizedBox(
-                          width: 900,
-                          child: Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Name',
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          color: kBlackColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    TextFormField(
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Please Enter Your Name";
-                                        }
-                                      },
-                                      cursorColor: Colors.black,
-                                      decoration: InputDecoration(
-                                          fillColor: Colors.grey.shade200,
-                                          filled: true,
-                                          prefixIcon: const Icon(Icons.person),
-                                          hintText: 'Name',
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0,
-                                                color: Colors.grey.shade300),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0,
-                                                color: Colors.grey.shade300),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    const Text(
-                                      'Email',
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          color: kBlackColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    TextFormField(
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Email Can't be empty";
-                                        }
-                                      },
-                                      cursorColor: Colors.black,
-                                      decoration: InputDecoration(
-                                          fillColor: Colors.grey.shade200,
-                                          filled: true,
-                                          prefixIcon: const Icon(Icons.email),
-                                          hintText: 'Email',
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0,
-                                                color: Colors.grey.shade300),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0,
-                                                color: Colors.grey.shade300),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    const Text(
-                                      'Message',
-                                      style: TextStyle(
-                                          letterSpacing: 1,
-                                          color: kBlackColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    TextFormField(
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Please Write Some Message";
-                                        }
-                                      },
-                                      keyboardType: TextInputType.multiline,
-                                      maxLines: 10,
-                                      cursorColor: Colors.black,
-                                      decoration: InputDecoration(
-                                          fillColor: Colors.grey.shade200,
-                                          filled: true,
-                                          // prefixIcon: const Icon(Icons.message),
-                                          hintText: 'Message',
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0,
-                                                color: Colors.grey.shade300),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0,
-                                                color: Colors.grey.shade300),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          )),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              minimumSize: const Size(200, 60)),
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                    content: Text(
-                                                        'Thanks For Contacting. Will will get to you very soon')),
-                                              );
-                                            }
-                                          },
-                                          child: const Text(
-                                            "SUBMIT",
-                                            style: TextStyle(
-                                                color: kBlackColor,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                    ),
-                                  ]),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 5,
+                          child: SizedBox(
+                            width: 900,
+                            child: Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Name',
+                                        style: TextStyle(
+                                            letterSpacing: 1,
+                                            color: kBlackColor,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextFormField(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Please Enter Your Name";
+                                          }
+                                        },
+                                        cursorColor: Colors.black,
+                                        decoration: InputDecoration(
+                                            fillColor: Colors.grey.shade200,
+                                            filled: true,
+                                            prefixIcon:
+                                                const Icon(Icons.person),
+                                            hintText: 'Name',
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 0,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 0,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )),
+                                      ),
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      const Text(
+                                        'Email',
+                                        style: TextStyle(
+                                            letterSpacing: 1,
+                                            color: kBlackColor,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextFormField(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Please Enter Your Email";
+                                          }
+                                        },
+                                        cursorColor: Colors.black,
+                                        decoration: InputDecoration(
+                                            fillColor: Colors.grey.shade200,
+                                            filled: true,
+                                            prefixIcon: const Icon(Icons.email),
+                                            hintText: 'Email',
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 0,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 0,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )),
+                                      ),
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      const Text(
+                                        'Message',
+                                        style: TextStyle(
+                                            letterSpacing: 1,
+                                            color: kBlackColor,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextFormField(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Please Write Some Message";
+                                          }
+                                        },
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 10,
+                                        cursorColor: Colors.black,
+                                        decoration: InputDecoration(
+                                            fillColor: Colors.grey.shade200,
+                                            filled: true,
+                                            hintText: 'Message',
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 0,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 0,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            )),
+                                      ),
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                minimumSize:
+                                                    const Size(200, 60)),
+                                            onPressed: () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.amber,
+                                                      content: Text(
+                                                        'Thanks For Contacting. Will will get to you very soon',
+                                                        style: TextStyle(
+                                                          color: kWhiteColor,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )),
+                                                );
+                                              }
+                                            },
+                                            child: const Text(
+                                              "SUBMIT",
+                                              style: TextStyle(
+                                                  color: kBlackColor,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ),
+                                    ]),
+                              ),
                             ),
                           ),
                         ),
@@ -572,6 +632,121 @@ class _HomePageState extends State<HomePage> {
                     ],
                   )),
             ),
+            Container(
+              color: kBlacColor,
+              height: 350,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "AYUSH KUMAR SINGH",
+                              style: TextStyle(
+                                  color: kWhiteColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.5,
+                              child: const Text(
+                                "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
+                                // textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: kWhiteColor,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "SOCIAL",
+                              style: TextStyle(
+                                  color: kWhiteColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              children: const [
+                                Icon(
+                                  Icons.message,
+                                  color: kWhiteColor,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(
+                                  Icons.home,
+                                  color: kWhiteColor,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(
+                                  Icons.person,
+                                  color: kWhiteColor,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(
+                                  Icons.home,
+                                  color: kWhiteColor,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(
+                                  Icons.home,
+                                  color: kWhiteColor,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(40, 30, 40, 10),
+                    // width: 1000,
+                    child: Divider(
+                      // height: 15,
+                      thickness: 0.5,
+                      color: kWhiteColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    '© Copyright 2022. Made by Ayush Kumar Singh',
+                    style: TextStyle(color: kWhiteColor),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
