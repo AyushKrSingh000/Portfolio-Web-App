@@ -8,11 +8,13 @@ class ProjectBoxHorizontal extends StatelessWidget {
   String imageName;
   String title;
   String info;
+  int projectid;
   ProjectBoxHorizontal(
       {super.key,
       required this.imageName,
       required this.title,
-      required this.info});
+      required this.info,
+      required this.projectid});
 
   @override
   Widget build(BuildContext context) {
@@ -53,17 +55,18 @@ class ProjectBoxHorizontal extends StatelessWidget {
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      duration: Duration(seconds: 1),
-                      backgroundColor: Colors.amber,
-                      content: Text(
-                        'Case Study Will Be Added Soon...',
-                        style: TextStyle(
-                          color: kBlackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )));
+                  if (projectid == 0) {
+                    Navigator.of(context).pushNamed('/project1');
+                  }
+                  if (projectid == 1) {
+                    Navigator.of(context).pushNamed('/project2');
+                  }
+                  if (projectid == 2) {
+                    Navigator.of(context).pushNamed('/project3');
+                  }
+                  if (projectid == 3) {
+                    Navigator.of(context).pushNamed('/project4');
+                  }
                 },
                 child: const Text(
                   "CASE STUDY",
@@ -83,11 +86,13 @@ class ProjectBoxVertical extends StatelessWidget {
   String imageName;
   String title;
   String info;
+  int projectid;
   ProjectBoxVertical(
       {super.key,
       required this.imageName,
       required this.title,
-      required this.info});
+      required this.info,
+      required this.projectid});
 
   @override
   Widget build(BuildContext context) {
@@ -128,17 +133,29 @@ class ProjectBoxVertical extends StatelessWidget {
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      duration: Duration(seconds: 1),
-                      backgroundColor: Colors.amber,
-                      content: Text(
-                        'Case Study Will Be Added Soon...',
-                        style: TextStyle(
-                          color: kBlackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )));
+                  if (projectid == 0) {
+                    Navigator.of(context).pushNamed('/project1');
+                  }
+                  if (projectid == 1) {
+                    Navigator.of(context).pushNamed('/project2');
+                  }
+                  if (projectid == 2) {
+                    Navigator.of(context).pushNamed('/project3');
+                  }
+                  if (projectid == 3) {
+                    Navigator.of(context).pushNamed('/project4');
+                  }
+                  // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  //     duration: Duration(seconds: 1),
+                  //     backgroundColor: Colors.amber,
+                  //     content: Text(
+                  //       'Case Study Will Be Added Soon...',
+                  //       style: TextStyle(
+                  //         color: kBlackColor,
+                  //         fontSize: 15,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //     )));
                 },
                 child: const Text(
                   "CASE STUDY",

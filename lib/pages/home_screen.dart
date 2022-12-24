@@ -1,36 +1,66 @@
+import 'dart:html';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/icons/CustomIcon.dart';
 import 'package:my_portfolio/widgets/project_box.dart';
 import 'package:my_portfolio/widgets/skill_box.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../controllers/hovers_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  int projectId;
+  HomePage({super.key, required this.projectId});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  void urlLauncher(String url) async {
-    //  const url = 'https:/github.com/AyushKrSingh000';
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   final _formKey = GlobalKey<FormState>();
 
   final ScrollController _controller = ScrollController();
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      double value = 0;
+      if (widget.projectId == 0) {
+        value = 0;
+      }
+      if (widget.projectId == 1) {
+        value = 600;
+      }
+      if (widget.projectId == 2 && MediaQuery.of(context).size.width >= 750) {
+        value = 1600;
+      }
+      if (widget.projectId == 2 && MediaQuery.of(context).size.width < 750) {
+        value = 2100;
+      }
+      if (widget.projectId == 3 && MediaQuery.of(context).size.width > 750) {
+        value = 1600 + MediaQuery.of(context).size.width * 1.66;
+      }
+      if (widget.projectId == 3 && MediaQuery.of(context).size.width < 750) {
+        double h1 = MediaQuery.of(context).size.width < 600
+            ? MediaQuery.of(context).size.width * 5
+            : MediaQuery.of(context).size.width * 3.7;
+        value = 2100 + h1;
+      }
+      _controller.animateTo(
+        value,
+        duration: const Duration(seconds: 1),
+        curve: Curves.fastOutSlowIn,
+      );
+    });
+  }
+
+  void onReady() {
+    if (widget.projectId == 0) {}
+    _controller.animateTo(
+      0,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
@@ -842,11 +872,13 @@ class _HomePageState extends State<HomePage> {
                               ? ProjectBoxVertical(
                                   imageName: 'docs2.png',
                                   title: "Google Docs Clone",
-                                  info: projects[0])
+                                  info: projects[0],
+                                  projectid: 0)
                               : ProjectBoxHorizontal(
                                   imageName: 'docs2.png',
                                   title: "Google Docs Clone",
-                                  info: projects[0]),
+                                  info: projects[0],
+                                  projectid: 0),
                           const SizedBox(
                               width: 350,
                               height: 40,
@@ -860,11 +892,13 @@ class _HomePageState extends State<HomePage> {
                               ? ProjectBoxVertical(
                                   imageName: 'vriddhi2.png',
                                   title: "Vriddhi SIH",
-                                  info: projects[1])
+                                  info: projects[1],
+                                  projectid: 1)
                               : ProjectBoxHorizontal(
                                   imageName: 'vriddhi2.png',
                                   title: "Vriddhi SIH",
-                                  info: projects[1]),
+                                  info: projects[1],
+                                  projectid: 1),
                           const SizedBox(
                               width: 350,
                               height: 40,
@@ -878,11 +912,13 @@ class _HomePageState extends State<HomePage> {
                               ? ProjectBoxVertical(
                                   imageName: 'expense2.png',
                                   title: "Expense Tracker App",
-                                  info: projects[2])
+                                  info: projects[2],
+                                  projectid: 2)
                               : ProjectBoxHorizontal(
                                   imageName: 'expense2.png',
                                   title: "Expense Tracker App",
-                                  info: projects[2]),
+                                  info: projects[2],
+                                  projectid: 2),
                           const SizedBox(
                               width: 350,
                               height: 40,
@@ -896,11 +932,13 @@ class _HomePageState extends State<HomePage> {
                               ? ProjectBoxVertical(
                                   imageName: 'event2.png',
                                   title: "Event Invite System",
-                                  info: projects[3])
+                                  info: projects[3],
+                                  projectid: 3)
                               : ProjectBoxHorizontal(
                                   imageName: 'event2.png',
                                   title: "Event Invite System",
-                                  info: projects[3]),
+                                  info: projects[3],
+                                  projectid: 3),
                         ],
                       )),
                 ),
