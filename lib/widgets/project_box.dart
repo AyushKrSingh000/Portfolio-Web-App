@@ -52,7 +52,19 @@ class ProjectBoxHorizontal extends StatelessWidget {
             ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      duration: Duration(seconds: 1),
+                      backgroundColor: Colors.amber,
+                      content: Text(
+                        'Case Study Will Be Added Soon...',
+                        style: TextStyle(
+                          color: kBlackColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )));
+                },
                 child: const Text(
                   "CASE STUDY",
                   style: TextStyle(
@@ -115,7 +127,19 @@ class ProjectBoxVertical extends StatelessWidget {
             ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      duration: Duration(seconds: 1),
+                      backgroundColor: Colors.amber,
+                      content: Text(
+                        'Case Study Will Be Added Soon...',
+                        style: TextStyle(
+                          color: kBlackColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )));
+                },
                 child: const Text(
                   "CASE STUDY",
                   style: TextStyle(

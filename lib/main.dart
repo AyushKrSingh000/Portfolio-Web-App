@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Portfolio Web Application',
+      title: 'Ayush Kumar Singh Portfolio',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // fontFamily: ,

@@ -274,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                           return InkWell(
                             onTap: () {
                               _controller.animateTo(
-                                1600 + MediaQuery.of(context).size.width * 1.65,
+                                1600 + MediaQuery.of(context).size.width * 1.66,
                                 duration: const Duration(seconds: 1),
                                 curve: Curves.fastOutSlowIn,
                               );
@@ -310,173 +310,192 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   color: const Color.fromRGBO(244, 244, 244, 1),
                   height: 600,
-                  child: Row(children: [
-                    Card(
-                      color: Colors.white,
-                      elevation: 20,
-                      child: SizedBox(
-                        height: 200,
-                        width: 45,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                  hoverColor: Colors.amber.withOpacity(0.5),
-                                  onTap: () {
-                                    urlLauncher(
-                                        'https:/github.com/AyushKrSingh000');
-                                  },
-                                  child: const SizedBox(
-                                      height: 50,
-                                      width: 45,
-                                      child: Icon(MyIcon.github))),
-                              InkWell(
-                                  hoverColor: Colors.amber.withOpacity(0.5),
-                                  onTap: () {
-                                    urlLauncher(
-                                        'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
-                                  },
-                                  child: const SizedBox(
-                                      height: 50,
-                                      width: 45,
-                                      child: Icon(MyIcon.linkedin))),
-                              InkWell(
-                                  hoverColor: Colors.amber.withOpacity(0.5),
-                                  onTap: () {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                            backgroundColor: Colors.amber,
-                                            content: Text(
-                                              'Gmail Id : ayushkumarsingh0708@gmail.com',
-                                              style: TextStyle(
-                                                color: kBlackColor,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )));
-                                  },
-                                  child: const SizedBox(
-                                      height: 50,
-                                      width: 45,
-                                      child: Icon(MyIcon.gmail))),
-                              InkWell(
-                                  hoverColor: Colors.amber.withOpacity(0.5),
-                                  onTap: () {
-                                    urlLauncher(
-                                        'https://www.instagram.com/ayush_kr.singh/');
-                                  },
-                                  child: const SizedBox(
-                                      height: 50,
-                                      width: 45,
-                                      child: Icon(MyIcon.instagram_square))),
-                            ]),
-                      ),
-                    ),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width - 60,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            AnimatedTextKit(
-                              animatedTexts: [
-                                TypewriterAnimatedText(
-                                  'Hello Hi there!',
-                                  textStyle: const TextStyle(
-                                      color: kBlacColor,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                  speed: const Duration(milliseconds: 110),
-                                ),
-                                TypewriterAnimatedText(
-                                  "I'M AYUSH KUMAR SINGH",
-                                  textStyle: const TextStyle(
-                                      color: kBlacColor,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                  speed: const Duration(milliseconds: 110),
-                                ),
-                                TypewriterAnimatedText(
-                                  'A PASSIONATE APP DEVELOPER FROM INDIA',
-                                  textStyle: const TextStyle(
-                                      color: kBlacColor,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                  speed: const Duration(milliseconds: 110),
-                                ),
-                                TypewriterAnimatedText(
-                                  'I LOVE CODING',
-                                  textStyle: const TextStyle(
-                                      color: kBlacColor,
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                  speed: const Duration(milliseconds: 110),
-                                ),
-                                TypewriterAnimatedText('AND DEVELOPING APPS',
-                                    textStyle: const TextStyle(
-                                        color: kBlacColor,
-                                        fontSize: 50,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                    speed: const Duration(milliseconds: 110),
-                                    cursor: '!'),
-                              ],
-                              repeatForever: true,
-                              pause: const Duration(milliseconds: 2700),
-                              displayFullTextOnTap: true,
-                              stopPauseOnTap: true,
-                            ),
-                            const SizedBox(
-                                width: 50,
-                                child: Divider(
-                                  thickness: 4,
-                                  color: kHoverColor,
-                                )),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              child: const Text(
-                                "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: kBlackColor,
-                                  fontSize: 18,
+                  child: Row(
+                      mainAxisAlignment: MediaQuery.of(context).size.width < 650
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.start,
+                      children: [
+                        MediaQuery.of(context).size.width < 650
+                            ? const Text('')
+                            : Card(
+                                color: Colors.white,
+                                elevation: 20,
+                                child: SizedBox(
+                                  height: 200,
+                                  width: 45,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        InkWell(
+                                            hoverColor:
+                                                Colors.amber.withOpacity(0.5),
+                                            onTap: () {
+                                              urlLauncher(
+                                                  'https://github.com/AyushKrSingh000');
+                                            },
+                                            child: const SizedBox(
+                                                height: 50,
+                                                width: 45,
+                                                child: Icon(MyIcon.github))),
+                                        InkWell(
+                                            hoverColor:
+                                                Colors.amber.withOpacity(0.5),
+                                            onTap: () {
+                                              urlLauncher(
+                                                  'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
+                                            },
+                                            child: const SizedBox(
+                                                height: 50,
+                                                width: 45,
+                                                child: Icon(MyIcon.linkedin))),
+                                        InkWell(
+                                            hoverColor:
+                                                Colors.amber.withOpacity(0.5),
+                                            onTap: () {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.amber,
+                                                      content: Text(
+                                                        'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                                        style: TextStyle(
+                                                          color: kBlackColor,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )));
+                                            },
+                                            child: const SizedBox(
+                                                height: 50,
+                                                width: 45,
+                                                child: Icon(MyIcon.gmail))),
+                                        InkWell(
+                                            hoverColor:
+                                                Colors.amber.withOpacity(0.5),
+                                            onTap: () {
+                                              urlLauncher(
+                                                  'https://www.instagram.com/ayush_kr.singh/');
+                                            },
+                                            child: const SizedBox(
+                                                height: 50,
+                                                width: 45,
+                                                child: Icon(
+                                                    MyIcon.instagram_square))),
+                                      ]),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size(250, 60)),
-                                onPressed: () {
-                                  _controller.animateTo(
-                                    MediaQuery.of(context).size.width < 750
-                                        ? 2100
-                                        : 1600,
-                                    duration: const Duration(seconds: 1),
-                                    curve: Curves.fastOutSlowIn,
-                                  );
-                                },
-                                child: const Text(
-                                  "PROJECTS",
-                                  style: TextStyle(
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width - 60,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                AnimatedTextKit(
+                                  animatedTexts: [
+                                    TypewriterAnimatedText(
+                                      'Hello Hi there!',
+                                      textStyle: const TextStyle(
+                                          color: kBlacColor,
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      speed: const Duration(milliseconds: 110),
+                                    ),
+                                    TypewriterAnimatedText(
+                                      "I'M AYUSH KUMAR SINGH",
+                                      textStyle: const TextStyle(
+                                          color: kBlacColor,
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      speed: const Duration(milliseconds: 110),
+                                    ),
+                                    TypewriterAnimatedText(
+                                      'A Passionate App Developer From India',
+                                      textStyle: const TextStyle(
+                                          color: kBlacColor,
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      speed: const Duration(milliseconds: 110),
+                                    ),
+                                    TypewriterAnimatedText(
+                                      'I Love Coding',
+                                      textStyle: const TextStyle(
+                                          color: kBlacColor,
+                                          fontSize: 50,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                      speed: const Duration(milliseconds: 110),
+                                    ),
+                                    TypewriterAnimatedText(
+                                        'And Developing Apps',
+                                        textStyle: const TextStyle(
+                                            color: kBlacColor,
+                                            fontSize: 50,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                        speed:
+                                            const Duration(milliseconds: 110),
+                                        cursor: '!'),
+                                  ],
+                                  repeatForever: true,
+                                  pause: const Duration(milliseconds: 2700),
+                                  displayFullTextOnTap: true,
+                                  stopPauseOnTap: true,
+                                ),
+                                const SizedBox(
+                                    width: 50,
+                                    child: Divider(
+                                      thickness: 4,
+                                      color: kHoverColor,
+                                    )),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  child: const Text(
+                                    "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
                                       color: kBlackColor,
                                       fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ))
-                          ],
-                        )),
-                  ]),
+                                      height: 1.2,
+                                      wordSpacing: 2,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        minimumSize: const Size(250, 60)),
+                                    onPressed: () {
+                                      _controller.animateTo(
+                                        MediaQuery.of(context).size.width < 750
+                                            ? 2100
+                                            : 1600,
+                                        duration: const Duration(seconds: 1),
+                                        curve: Curves.fastOutSlowIn,
+                                      );
+                                    },
+                                    child: const Text(
+                                      "PROJECTS",
+                                      style: TextStyle(
+                                          color: kBlackColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ))
+                              ],
+                            )),
+                      ]),
                 ),
                 //About Section
                 SizedBox(
@@ -510,6 +529,8 @@ class _HomePageState extends State<HomePage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: kBlackColor,
+                            height: 1.5,
+                            wordSpacing: 2,
                             fontSize: 18,
                           ),
                         ),
@@ -528,14 +549,12 @@ class _HomePageState extends State<HomePage> {
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
                                           const Text(
                                             "Get to know me!",
                                             style: TextStyle(
                                                 color: kBlacColor,
-                                                fontSize: 30,
+                                                fontSize: 35,
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
                                           ),
@@ -555,6 +574,7 @@ class _HomePageState extends State<HomePage> {
                                                 height: 1.5,
                                                 wordSpacing: 2,
                                               ),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
                                           const SizedBox(
@@ -579,7 +599,6 @@ class _HomePageState extends State<HomePage> {
                                                               .size
                                                               .width *
                                                           3.7;
-                                                  print(h1);
                                                   _controller.animateTo(
                                                     2100 + h1,
                                                     duration: const Duration(
@@ -605,21 +624,17 @@ class _HomePageState extends State<HomePage> {
                                   padding:
                                       const EdgeInsets.fromLTRB(30, 30, 30, 20),
                                   child: SizedBox(
-                                    // width:
-                                    // MediaQuery.of(context).size.width / 2.5,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           "My Skills",
                                           style: TextStyle(
                                               color: kBlacColor,
-                                              fontSize: 30,
+                                              fontSize: 35,
                                               fontWeight: FontWeight.bold),
-                                          // textAlign: TextAlign.center,
+                                          textAlign: TextAlign.center,
                                         ),
                                         const SizedBox(
                                           height: 40,
@@ -701,7 +716,7 @@ class _HomePageState extends State<HomePage> {
                                                       MediaQuery.of(context)
                                                               .size
                                                               .width *
-                                                          1.65,
+                                                          1.66,
                                                   duration: const Duration(
                                                       seconds: 1),
                                                   curve: Curves.fastOutSlowIn,
@@ -777,7 +792,7 @@ class _HomePageState extends State<HomePage> {
                       ? (MediaQuery.of(context).size.width < 600
                           ? MediaQuery.of(context).size.width * 5
                           : MediaQuery.of(context).size.width * 3.7)
-                      : MediaQuery.of(context).size.width * 1.65,
+                      : MediaQuery.of(context).size.width * 1.66,
                   child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Column(
@@ -815,8 +830,14 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
-                          ),
+                              width: 350,
+                              height: 20,
+                              child: Center(
+                                child: Divider(
+                                  thickness: 0.5,
+                                  color: kBlackColor,
+                                ),
+                              )),
                           (MediaQuery.of(context).size.width < 750)
                               ? ProjectBoxVertical(
                                   imageName: 'docs2.png',
@@ -827,8 +848,8 @@ class _HomePageState extends State<HomePage> {
                                   title: "Google Docs Clone",
                                   info: projects[0]),
                           const SizedBox(
-                              width: 500,
-                              height: 20,
+                              width: 350,
+                              height: 40,
                               child: Center(
                                 child: Divider(
                                   thickness: 0.5,
@@ -845,8 +866,8 @@ class _HomePageState extends State<HomePage> {
                                   title: "Vriddhi SIH",
                                   info: projects[1]),
                           const SizedBox(
-                              width: 500,
-                              height: 20,
+                              width: 350,
+                              height: 40,
                               child: Center(
                                 child: Divider(
                                   thickness: 0.5,
@@ -863,8 +884,8 @@ class _HomePageState extends State<HomePage> {
                                   title: "Expense Tracker App",
                                   info: projects[2]),
                           const SizedBox(
-                              width: 500,
-                              height: 20,
+                              width: 350,
+                              height: 40,
                               child: Center(
                                 child: Divider(
                                   thickness: 0.5,
@@ -1082,11 +1103,16 @@ class _HomePageState extends State<HomePage> {
                                             height: 40,
                                           ),
                                           Align(
-                                            alignment: Alignment.topRight,
+                                            alignment: Alignment.center,
                                             child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                    minimumSize:
-                                                        const Size(200, 60)),
+                                                    minimumSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width <
+                                                            650
+                                                        ? const Size(150, 60)
+                                                        : const Size(200, 60)),
                                                 onPressed: () {
                                                   if (_formKey.currentState!
                                                       .validate()) {
@@ -1128,129 +1154,129 @@ class _HomePageState extends State<HomePage> {
                         ],
                       )),
                 ),
+                //Bottom Sections
                 Container(
                   color: kBlacColor,
-                  height: 300,
+                  height: MediaQuery.of(context).size.width < 650 ? 300 : 250,
                   child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const SizedBox(
                         height: 20,
                       ),
                       MediaQuery.of(context).size.width < 650
-                          ? Column(children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "AYUSH KUMAR SINGH",
+                          ? Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "AYUSH KUMAR SINGH",
+                                    style: TextStyle(
+                                        color: kWhiteColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.2,
+                                    child: const Text(
+                                      "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: kWhiteColor,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(right: 20),
+                                    child: Text(
+                                      "  SOCIAL",
                                       style: TextStyle(
                                           color: kWhiteColor,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.start,
                                     ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          1.2,
-                                      child: const Text(
-                                        "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
-                                        // textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: kWhiteColor,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: Text(
-                                        "SOCIAL",
-                                        style: TextStyle(
-                                            color: kWhiteColor,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              urlLauncher(
-                                                  'https:/github.com/AyushKrSingh000');
-                                            },
-                                            child: const SizedBox(
-                                                // height: 50,
-                                                width: 45,
-                                                child: Icon(
-                                                  MyIcon.github,
-                                                  color: kWhiteColor,
-                                                ))),
-                                        InkWell(
-                                            onTap: () {
-                                              urlLauncher(
-                                                  'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
-                                            },
-                                            child: const SizedBox(
-                                                // height: 50,
-                                                width: 45,
-                                                child: Icon(
-                                                  MyIcon.linkedin,
-                                                  color: kWhiteColor,
-                                                ))),
-                                        InkWell(
-                                            onTap: () {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.amber,
-                                                      content: Text(
-                                                        'Gmail Id : ayushkumarsingh0708@gmail.com',
-                                                        style: TextStyle(
-                                                          color: kBlackColor,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      )));
-                                            },
-                                            child: const SizedBox(
-                                                // height: 50,
-                                                width: 45,
-                                                child: Icon(
-                                                  MyIcon.gmail,
-                                                  color: kWhiteColor,
-                                                ))),
-                                        InkWell(
-                                            onTap: () {
-                                              urlLauncher(
-                                                  'https://www.instagram.com/ayush_kr.singh/');
-                                            },
-                                            child: const SizedBox(
-                                                // height: 50,
-                                                width: 45,
-                                                child: Icon(
-                                                  MyIcon.instagram_square,
-                                                  color: kWhiteColor,
-                                                ))),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ])
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                          onTap: () {
+                                            urlLauncher(
+                                                'https://github.com/AyushKrSingh000');
+                                          },
+                                          child: const SizedBox(
+                                              // height: 50,
+                                              width: 45,
+                                              child: Icon(
+                                                MyIcon.github,
+                                                color: kWhiteColor,
+                                              ))),
+                                      InkWell(
+                                          onTap: () {
+                                            urlLauncher(
+                                                'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
+                                          },
+                                          child: const SizedBox(
+                                              // height: 50,
+                                              width: 45,
+                                              child: Icon(
+                                                MyIcon.linkedin,
+                                                color: kWhiteColor,
+                                              ))),
+                                      InkWell(
+                                          onTap: () {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    backgroundColor:
+                                                        Colors.amber,
+                                                    content: Text(
+                                                      'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                                      style: TextStyle(
+                                                        color: kBlackColor,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    )));
+                                          },
+                                          child: const SizedBox(
+                                              // height: 50,
+                                              width: 45,
+                                              child: Icon(
+                                                MyIcon.gmail,
+                                                color: kWhiteColor,
+                                              ))),
+                                      InkWell(
+                                          onTap: () {
+                                            urlLauncher(
+                                                'https://www.instagram.com/ayush_kr.singh/');
+                                          },
+                                          child: const SizedBox(
+                                              // height: 50,
+                                              width: 45,
+                                              child: Icon(
+                                                MyIcon.instagram_square,
+                                                color: kWhiteColor,
+                                              ))),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
                           : Padding(
                               padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
                               child: Row(
@@ -1291,10 +1317,9 @@ class _HomePageState extends State<HomePage> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 20),
-                                        child: const Text(
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 20),
+                                        child: Text(
                                           "SOCIAL",
                                           style: TextStyle(
                                               color: kWhiteColor,
@@ -1348,7 +1373,6 @@ class _HomePageState extends State<HomePage> {
                                                       )));
                                             },
                                             child: const SizedBox(
-                                                // height: 50,
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.gmail,
@@ -1360,7 +1384,6 @@ class _HomePageState extends State<HomePage> {
                                                   'https://www.instagram.com/ayush_kr.singh/');
                                             },
                                             child: const SizedBox(
-                                                // height: 50,
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.instagram_square,
@@ -1373,21 +1396,16 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                       const Padding(
-                        padding: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                        // width: 1000,
+                        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: Divider(
-                          // height: 15,
                           thickness: 0.5,
                           color: kWhiteColor,
                         ),
                       ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
                       const Text(
                         '© Copyright 2022. Made by Ayush Kumar Singh',
                         style: TextStyle(color: kWhiteColor),
-                      )
+                      ),
                     ],
                   ),
                 )
