@@ -22,6 +22,7 @@ List<String> skills = [
   'Git',
   'GitHub',
 ];
+List<String> items = ['HOME', 'ABOUT', 'PROJECTS', 'CONTACT'];
 List<String> projects = [
   'Created as a learning tool to explore REST API, Socket.IO, and state management in app development',
   'Developed an one stop solution in the form of app and website to help parents in the overall development of their child.',
