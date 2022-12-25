@@ -314,8 +314,11 @@ class _ProjectSectionState extends State<ProjectSection> {
                         )),
                   ),
                   SizedBox(
-                    height:
-                        MediaQuery.of(context).size.width < 570 ? 1750 : 1400,
+                    height: MediaQuery.of(context).size.width < 570
+                        ? (MediaQuery.of(context).size.width < 400
+                            ? 1850
+                            : 1750)
+                        : 1420,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: [
@@ -380,20 +383,29 @@ class _ProjectSectionState extends State<ProjectSection> {
                                 height: 40,
                               ),
                               SizedBox(
-                                  height: 150,
+                                  height:
+                                      MediaQuery.of(context).size.width < 436
+                                          ? 250
+                                          : 150,
                                   child: GridView.builder(
-                                    controller: ScrollController(
-                                        keepScrollOffset: false),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemCount: tech[widget.projectid]!.length,
                                     itemBuilder: ((context, index) {
                                       return SkillBox(
-                                          skillName:
-                                              tech[widget.projectid]![index]);
+                                        url:
+                                            techLinks[widget.projectid]![index],
+                                        skillName:
+                                            tech[widget.projectid]![index],
+                                        imageName:
+                                            tech[widget.projectid]![index]
+                                                .toLowerCase(),
+                                      );
                                     }),
                                     gridDelegate:
                                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 130,
-                                            childAspectRatio: 5 / 2,
+                                            maxCrossAxisExtent: 177,
+                                            childAspectRatio: 6 / 2,
                                             crossAxisSpacing: 5,
                                             mainAxisSpacing: 5),
                                   )),

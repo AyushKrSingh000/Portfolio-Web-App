@@ -344,7 +344,6 @@ class _HomePageState extends State<HomePage> {
               controller: _controller,
               child: Column(
                 children: [
-                  //Home Section
                   Container(
                     color: const Color.fromRGBO(244, 244, 244, 1),
                     height: 600,
@@ -373,10 +372,15 @@ class _HomePageState extends State<HomePage> {
                                                 urlLauncher(
                                                     'https://github.com/AyushKrSingh000');
                                               },
-                                              child: const SizedBox(
-                                                  height: 50,
-                                                  width: 45,
-                                                  child: Icon(MyIcon.github))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Github',
+                                                child: SizedBox(
+                                                    height: 50,
+                                                    width: 45,
+                                                    child: Icon(MyIcon.github)),
+                                              )),
                                           InkWell(
                                               hoverColor:
                                                   Colors.amber.withOpacity(0.5),
@@ -384,11 +388,16 @@ class _HomePageState extends State<HomePage> {
                                                 urlLauncher(
                                                     'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
                                               },
-                                              child: const SizedBox(
-                                                  height: 50,
-                                                  width: 45,
-                                                  child:
-                                                      Icon(MyIcon.linkedin))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Linkedin',
+                                                child: SizedBox(
+                                                    height: 50,
+                                                    width: 45,
+                                                    child:
+                                                        Icon(MyIcon.linkedin)),
+                                              )),
                                           InkWell(
                                               hoverColor:
                                                   Colors.amber.withOpacity(0.5),
@@ -410,10 +419,15 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                             )));
                                               },
-                                              child: const SizedBox(
-                                                  height: 50,
-                                                  width: 45,
-                                                  child: Icon(MyIcon.gmail))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Gmail',
+                                                child: SizedBox(
+                                                    height: 50,
+                                                    width: 45,
+                                                    child: Icon(MyIcon.gmail)),
+                                              )),
                                           InkWell(
                                               hoverColor:
                                                   Colors.amber.withOpacity(0.5),
@@ -421,21 +435,36 @@ class _HomePageState extends State<HomePage> {
                                                 urlLauncher(
                                                     'https://www.instagram.com/ayush_kr.singh/');
                                               },
-                                              child: const SizedBox(
-                                                  height: 50,
-                                                  width: 45,
-                                                  child: Icon(MyIcon
-                                                      .instagram_square))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Instagram',
+                                                child: SizedBox(
+                                                    height: 50,
+                                                    width: 45,
+                                                    child: Icon(MyIcon
+                                                        .instagram_square)),
+                                              )),
                                         ]),
                                   ),
                                 ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width - 60,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const SizedBox(
-                                    height: 50,
+                                    height: 20,
+                                  ),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.amber,
+                                    radius:
+                                        MediaQuery.of(context).size.width / 11,
+                                    backgroundImage: const ExactAssetImage(
+                                        'assets/project_images/photo.jpg'),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
                                   ),
                                   AnimatedTextKit(
                                     animatedTexts: [
@@ -443,7 +472,7 @@ class _HomePageState extends State<HomePage> {
                                         'Hello Hi there!',
                                         textStyle: const TextStyle(
                                             color: kBlacColor,
-                                            fontSize: 40,
+                                            fontSize: 50,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                         speed:
@@ -453,7 +482,7 @@ class _HomePageState extends State<HomePage> {
                                         "I'M AYUSH KUMAR SINGH",
                                         textStyle: const TextStyle(
                                             color: kBlacColor,
-                                            fontSize: 40,
+                                            fontSize: 50,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                         speed:
@@ -463,7 +492,7 @@ class _HomePageState extends State<HomePage> {
                                         'A Passionate App Developer From India',
                                         textStyle: const TextStyle(
                                             color: kBlacColor,
-                                            fontSize: 40,
+                                            fontSize: 50,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                         speed:
@@ -637,29 +666,10 @@ class _HomePageState extends State<HomePage> {
                                                               const Size(
                                                                   250, 60)),
                                                   onPressed: () {
-                                                    double h1 = MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width <
-                                                            600
-                                                        ? MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            5
-                                                        : MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            3.7;
-                                                    _controller.animateTo(
-                                                      2100 + h1,
-                                                      duration: const Duration(
-                                                          seconds: 1),
-                                                      curve:
-                                                          Curves.fastOutSlowIn,
-                                                    );
+                                                    urlLauncher(resumeLink);
                                                   },
                                                   child: const Text(
-                                                    "CONTACT",
+                                                    "VIEW RESUME",
                                                     style: TextStyle(
                                                         color: kBlackColor,
                                                         fontSize: 18,
@@ -694,17 +704,20 @@ class _HomePageState extends State<HomePage> {
                                           SizedBox(
                                               height: 300,
                                               child: GridView.builder(
-                                                controller: ScrollController(
-                                                    keepScrollOffset: false),
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
                                                 itemCount: skills.length,
                                                 itemBuilder: ((context, index) {
                                                   return SkillBox(
+                                                      url: skilllinks[index],
+                                                      imageName: skills[index]
+                                                          .toLowerCase(),
                                                       skillName: skills[index]);
                                                 }),
                                                 gridDelegate:
                                                     const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                        maxCrossAxisExtent: 130,
-                                                        childAspectRatio: 5 / 2,
+                                                        maxCrossAxisExtent: 180,
+                                                        childAspectRatio: 4.5,
                                                         crossAxisSpacing: 5,
                                                         mainAxisSpacing: 5),
                                               )),
@@ -715,75 +728,64 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               )
                             : Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.1,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(30.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Get to know me!",
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(30),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Get to know me!",
+                                            style: TextStyle(
+                                                color: kBlacColor,
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(
+                                            height: 40,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2.2,
+                                            child: const Text(
+                                              "Hi there! I am a second-year student currently pursuing a degree in Computer Science. I am an aspiring app developer with a passion for creating intuitive and user-friendly mobile experiences. In my free time, I love to code and experiment with new technologies.\n \nI am also a proud winner of the Smart India Hackathon , where I had the opportunity to showcase my skills and develop innovative solutions to real-world problems. I am excited to continue learning and growing as a developer, and I am always open to new opportunities and challenges.",
                                               style: TextStyle(
-                                                  color: kBlacColor,
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            const SizedBox(
-                                              height: 40,
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: const Text(
-                                                "Hi there! I am a second-year student currently pursuing a degree in Computer Science. I am an aspiring app developer with a passion for creating intuitive and user-friendly mobile experiences. In my free time, I love to code and experiment with new technologies.\n \nI am also a proud winner of the Smart India Hackathon , where I had the opportunity to showcase my skills and develop innovative solutions to real-world problems. I am excited to continue learning and growing as a developer, and I am always open to new opportunities and challenges.",
-                                                style: TextStyle(
-                                                  color: kBlackColor,
-                                                  fontSize: 18,
-                                                  height: 1.5,
-                                                  wordSpacing: 2,
-                                                ),
+                                                color: kBlackColor,
+                                                fontSize: 18,
+                                                height: 1.5,
+                                                wordSpacing: 2,
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 50,
-                                            ),
-                                            ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    minimumSize:
-                                                        const Size(250, 60)),
-                                                onPressed: () {
-                                                  _controller.animateTo(
-                                                    1600 +
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            1.66,
-                                                    duration: const Duration(
-                                                        seconds: 1),
-                                                    curve: Curves.fastOutSlowIn,
-                                                  );
-                                                },
-                                                child: const Text(
-                                                  "CONTACT",
-                                                  style: TextStyle(
-                                                      color: kBlackColor,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )),
-                                          ],
-                                        ),
+                                          ),
+                                          const SizedBox(
+                                            height: 50,
+                                          ),
+                                          ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  minimumSize:
+                                                      const Size(250, 60)),
+                                              onPressed: () {
+                                                urlLauncher(resumeLink);
+                                              },
+                                              child: const Text(
+                                                "VIEW RESUME",
+                                                style: TextStyle(
+                                                    color: kBlackColor,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -813,21 +815,25 @@ class _HomePageState extends State<HomePage> {
                                           Padding(
                                             padding: const EdgeInsets.all(20.0),
                                             child: SizedBox(
-                                                height: 400,
+                                                height: 500,
                                                 child: GridView.builder(
+                                                  physics:
+                                                      const NeverScrollableScrollPhysics(),
                                                   itemCount: skills.length,
                                                   itemBuilder:
                                                       ((context, index) {
                                                     return SkillBox(
-                                                        skillName:
-                                                            skills[index]);
+                                                      url: skilllinks[index],
+                                                      skillName: skills[index],
+                                                      imageName: skills[index]
+                                                          .toLowerCase(),
+                                                    );
                                                   }),
                                                   gridDelegate:
                                                       const SliverGridDelegateWithMaxCrossAxisExtent(
                                                           maxCrossAxisExtent:
-                                                              130,
-                                                          childAspectRatio:
-                                                              5 / 2,
+                                                              175,
+                                                          childAspectRatio: 3,
                                                           crossAxisSpacing: 5,
                                                           mainAxisSpacing: 5),
                                                 )),
@@ -1418,25 +1424,34 @@ class _HomePageState extends State<HomePage> {
                                                 urlLauncher(
                                                     'https:/github.com/AyushKrSingh000');
                                               },
-                                              child: const SizedBox(
-                                                  // height: 50,
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.github,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Github',
+                                                child: SizedBox(
+                                                    // height: 50,
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.github,
+                                                      color: kWhiteColor,
+                                                    )),
+                                              )),
                                           InkWell(
                                               onTap: () {
                                                 urlLauncher(
                                                     'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
                                               },
-                                              child: const SizedBox(
-                                                  // height: 50,
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.linkedin,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Linkedin',
+                                                child: SizedBox(
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.linkedin,
+                                                      color: kWhiteColor,
+                                                    )),
+                                              )),
                                           InkWell(
                                               onTap: () {
                                                 ScaffoldMessenger.of(context)
@@ -1456,23 +1471,33 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                             )));
                                               },
-                                              child: const SizedBox(
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.gmail,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Gmail',
+                                                child: SizedBox(
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.gmail,
+                                                      color: kWhiteColor,
+                                                    )),
+                                              )),
                                           InkWell(
                                               onTap: () {
                                                 urlLauncher(
                                                     'https://www.instagram.com/ayush_kr.singh/');
                                               },
-                                              child: const SizedBox(
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.instagram_square,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Instagram',
+                                                child: SizedBox(
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.instagram_square,
+                                                      color: kWhiteColor,
+                                                    )),
+                                              )),
                                         ]),
                                       ],
                                     ),
