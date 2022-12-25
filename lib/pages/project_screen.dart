@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/pages/home_screen.dart';
+import 'package:get/get.dart';
 
 import '../constants.dart';
 import '../controllers/hovers_controller.dart';
@@ -56,11 +56,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               builder: (isHovered) {
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomePage(projectId: 0)),
-                                        (route) => false);
+                                    Get.toNamed("/");
                                   },
                                   child: Text(
                                     "HOME",
@@ -84,11 +80,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               builder: (isHovered) {
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomePage(projectId: 1)),
-                                        (route) => false);
+                                    Get.toNamed("/about");
                                   },
                                   child: Text(
                                     "ABOUT",
@@ -112,11 +104,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               builder: (isHovered) {
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomePage(projectId: 2)),
-                                        (route) => false);
+                                    Get.toNamed("/projects");
                                   },
                                   child: Text(
                                     "PROJECTS",
@@ -140,11 +128,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               builder: (isHovered) {
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomePage(projectId: 3)),
-                                        (route) => false);
+                                    Get.toNamed("/contact");
                                   },
                                   child: Text(
                                     "CONTACT",
@@ -174,11 +158,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                         builder: (isHovered) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(projectId: 0)),
-                                  (route) => false);
+                              Get.toNamed("/");
                             },
                             child: Text(
                               "HOME",
@@ -197,11 +177,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                         builder: (isHovered) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(projectId: 1)),
-                                  (route) => false);
+                              Get.toNamed("/about");
                             },
                             child: Text(
                               "ABOUT",
@@ -220,11 +196,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                         builder: (isHovered) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(projectId: 2)),
-                                  (route) => false);
+                              Get.toNamed("/projects");
                             },
                             child: Text(
                               "PROJECTS",
@@ -243,11 +215,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                         builder: (isHovered) {
                           return InkWell(
                             onTap: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomePage(projectId: 3)),
-                                  (route) => false);
+                              Get.toNamed("/contact");
                             },
                             child: Text(
                               "CONTACTS",
@@ -322,7 +290,19 @@ class _ProjectSectionState extends State<ProjectSection> {
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     minimumSize: const Size(250, 60)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                          backgroundColor: Colors.amber,
+                                          content: Text(
+                                            'Project Link Will Be Added Soon...',
+                                            style: TextStyle(
+                                              color: kBlackColor,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )));
+                                },
                                 child: const Text(
                                   "Project Link",
                                   style: TextStyle(
@@ -444,7 +424,19 @@ class _ProjectSectionState extends State<ProjectSection> {
                                   ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                           minimumSize: const Size(200, 60)),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                backgroundColor: Colors.amber,
+                                                content: Text(
+                                                  'Project Link Will Be Added Soon...',
+                                                  style: TextStyle(
+                                                    color: kBlackColor,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )));
+                                      },
                                       child: const Text(
                                         "Project Link",
                                         style: TextStyle(
@@ -463,7 +455,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                           backgroundColor: Colors.white,
                                           minimumSize: const Size(200, 60)),
                                       onPressed: () {
-                                        Navigator.pop(context);
+                                        Get.toNamed('/');
                                       },
                                       child: const Text(
                                         "Go Back",

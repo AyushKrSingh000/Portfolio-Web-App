@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constants.dart';
 
@@ -56,16 +57,16 @@ class ProjectBoxHorizontal extends StatelessWidget {
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
                 onPressed: () {
                   if (projectid == 0) {
-                    Navigator.of(context).pushNamed('/project1');
+                    Get.toNamed('/project1');
                   }
                   if (projectid == 1) {
-                    Navigator.of(context).pushNamed('/project2');
+                    Get.toNamed('/project2');
                   }
                   if (projectid == 2) {
-                    Navigator.of(context).pushNamed('/project3');
+                    Get.toNamed('/project3');
                   }
                   if (projectid == 3) {
-                    Navigator.of(context).pushNamed('/project4');
+                    Get.toNamed('/project4');
                   }
                 },
                 child: const Text(
@@ -134,16 +135,16 @@ class ProjectBoxVertical extends StatelessWidget {
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
                 onPressed: () {
                   if (projectid == 0) {
-                    Navigator.of(context).pushNamed('/project1');
+                    Get.toNamed('/project1');
                   }
                   if (projectid == 1) {
-                    Navigator.of(context).pushNamed('/project2');
+                    Get.toNamed('/project2');
                   }
                   if (projectid == 2) {
-                    Navigator.of(context).pushNamed('/project3');
+                    Get.toNamed('/project3');
                   }
                   if (projectid == 3) {
-                    Navigator.of(context).pushNamed('/project4');
+                    Get.toNamed('/project4');
                   }
                   // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   //     duration: Duration(seconds: 1),
