@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           PopupMenuItem(
-                            value: 1,
+                            value: 2,
                             child: SizedBox(
                               width: 80,
                               child: HoverBuilder(
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           PopupMenuItem(
-                            value: 1,
+                            value: 3,
                             child: SizedBox(
                               width: 80,
                               child: HoverBuilder(
@@ -187,6 +187,30 @@ class _HomePageState extends State<HomePage> {
                           ),
                           PopupMenuItem(
                             value: 1,
+                            child: SizedBox(
+                              width: 80,
+                              child: HoverBuilder(
+                                builder: (isHovered) {
+                                  return InkWell(
+                                    onTap: () {
+                                      urlLauncher(resumeLink);
+                                    },
+                                    child: Text(
+                                      "RESUME",
+                                      style: TextStyle(
+                                          color: isHovered
+                                              ? kHoverColor
+                                              : kBlackColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: fontsize),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 4,
                             child: SizedBox(
                               width: 80,
                               child: HoverBuilder(
@@ -359,12 +383,28 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                   elevation: 20,
                                   child: SizedBox(
-                                    height: 200,
+                                    height: 250,
                                     width: 45,
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
+                                          InkWell(
+                                              hoverColor:
+                                                  Colors.amber.withOpacity(0.5),
+                                              onTap: () {
+                                                urlLauncher(resumeLink);
+                                              },
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Resume',
+                                                child: SizedBox(
+                                                    height: 50,
+                                                    width: 45,
+                                                    child:
+                                                        Icon(Icons.file_copy)),
+                                              )),
                                           InkWell(
                                               hoverColor:
                                                   Colors.amber.withOpacity(0.5),

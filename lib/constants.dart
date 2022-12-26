@@ -48,7 +48,6 @@ List<String> projects = [
   'It Provides a unique authentication for events. It uses QR codes to verify attendance and ensure that only authorized individuals are able to access the event.'
 ];
 void urlLauncher(String url) async {
-  //  const url = 'https:/github.com/AyushKrSingh000';
   final uri = Uri.parse(url);
   if (await canLaunchUrl(uri)) {
     await launchUrl(uri);
