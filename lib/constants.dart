@@ -1,13 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const kWhiteColor = Colors.white;
-const kBlackColor = Color.fromARGB(255, 50, 48, 48);
-const kHoverColor = Colors.amber;
 const double fontsize = 16;
-const kBlacColor = Colors.black;
-const kGreyColor = Colors.grey;
-
 const String resumeLink =
     "https://drive.google.com/file/d/1N3pM4lFXtehFQ-QUXuWhjRcdnZ8slA8A/view?usp=sharing";
 List<String> skills = [

@@ -30,7 +30,6 @@ class MyIcon {
 
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
-
   static const IconData gmail =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData instagram_square =

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:my_portfolio/constants.dart';
 
+import '../controllers/theme_controller.dart';
+
 class SkillBox extends StatelessWidget {
   String skillName;
   String imageName;
@@ -22,7 +24,7 @@ class SkillBox extends StatelessWidget {
       child: InkWell(
         child: Card(
           elevation: 0.1,
-          color: kGreyColor.shade300,
+          color: kGreyColor,
           child: InkWell(
             hoverColor: Colors.amber.shade300,
             onTap: () {
@@ -40,7 +42,7 @@ class SkillBox extends StatelessWidget {
                   width: 90,
                   child: Text(
                     skillName,
-                    style: const TextStyle(color: kBlackColor, fontSize: 18),
+                    style: TextStyle(color: kBlackColor, fontSize: 18),
                   ),
                 ),
               ],

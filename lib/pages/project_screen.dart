@@ -1,14 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:my_portfolio/pages/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../constants.dart';
 import '../controllers/hovers_controller.dart';
+import '../controllers/theme_controller.dart';
 import '../icons/CustomIcon.dart';
 import '../widgets/skill_box.dart';
 
 class ProjectSection extends StatefulWidget {
   int projectid;
-  ProjectSection({super.key, required this.projectid});
+  ProjectSection({
+    Key? key,
+    required this.projectid,
+  }) : super(key: key);
 
   @override
   State<ProjectSection> createState() => _ProjectSectionState();
@@ -16,10 +25,33 @@ class ProjectSection extends StatefulWidget {
 
 class _ProjectSectionState extends State<ProjectSection> {
   final ScrollController _controller = ScrollController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  void getThemeData() async {
+    final SharedPreferences prefs = await _prefs;
+    if (prefs.getBool('darkmode') == null) {
+      return;
+    }
+    setState(() {
+      isDarkMode = prefs.getBool('darkmode') as bool;
+    });
+    changeme(isDarkMode);
+  }
+
+  void setThemeData(bool value) async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setBool('darkmode', value);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getThemeData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //AppBar
+        backgroundColor: backgroundColor2,
         appBar: AppBar(
           toolbarHeight: 80,
           backgroundColor: kWhiteColor,
@@ -37,16 +69,52 @@ class _ProjectSectionState extends State<ProjectSection> {
               ),
             ],
           ),
-          title: const Text(
-            "AYUSH KUMAR SINGH",
-            style: TextStyle(color: kBlackColor),
+          title: Row(
+            children: [
+              Text(
+                MediaQuery.of(context).size.width < 420
+                    ? "AYUSH KR SINGH"
+                    : "AYUSH KUMAR SINGH",
+                style: TextStyle(color: kBlackColor),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Transform.scale(
+                scale: MediaQuery.of(context).size.width < 500 ? 0.6 : 0.9,
+                child: CupertinoSwitch(
+                    activeColor: kHoverColor,
+                    value: isDarkMode,
+                    onChanged: (value) {
+                      setThemeData(value);
+                      if (value) {
+                        Get.changeThemeMode(ThemeMode.dark);
+                        setState(() {
+                          isDarkMode = true;
+                        });
+                      }
+                      if (!value) {
+                        Get.changeThemeMode(ThemeMode.light);
+                        setState(() {
+                          isDarkMode = false;
+                        });
+                      }
+                      setState(() {
+                        changeme(value);
+                      });
+                    }),
+              ),
+            ],
           ),
           actions: [
             MediaQuery.of(context).size.width < 750
                 ? Padding(
                     padding: const EdgeInsets.only(right: 10.0),
                     child: PopupMenuButton<int>(
-                      icon: const Icon(Icons.menu),
+                      icon: Icon(
+                        Icons.menu,
+                        color: kBlacColor,
+                      ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           value: 1,
@@ -73,7 +141,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                           ),
                         ),
                         PopupMenuItem(
-                          value: 1,
+                          value: 2,
                           child: SizedBox(
                             width: 80,
                             child: HoverBuilder(
@@ -97,7 +165,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                           ),
                         ),
                         PopupMenuItem(
-                          value: 1,
+                          value: 3,
                           child: SizedBox(
                             width: 80,
                             child: HoverBuilder(
@@ -121,7 +189,31 @@ class _ProjectSectionState extends State<ProjectSection> {
                           ),
                         ),
                         PopupMenuItem(
-                          value: 1,
+                          value: 4,
+                          child: SizedBox(
+                            width: 80,
+                            child: HoverBuilder(
+                              builder: (isHovered) {
+                                return InkWell(
+                                  onTap: () {
+                                    urlLauncher(resumeLink);
+                                  },
+                                  child: Text(
+                                    "RESUME",
+                                    style: TextStyle(
+                                        color: isHovered
+                                            ? kHoverColor
+                                            : kBlackColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: fontsize),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 5,
                           child: SizedBox(
                             width: 80,
                             child: HoverBuilder(
@@ -146,7 +238,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                         ),
                       ],
                       offset: const Offset(0, 100),
-                      color: Colors.grey.shade300,
+                      color: isDarkMode ? Colors.grey : Colors.grey.shade300,
                       elevation: 2,
                     ),
                   )
@@ -244,7 +336,7 @@ class _ProjectSectionState extends State<ProjectSection> {
               child: Column(
                 children: [
                   Container(
-                    color: const Color.fromRGBO(244, 244, 244, 1),
+                    color: backgroundColor1,
                     height: 430,
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
@@ -256,13 +348,13 @@ class _ProjectSectionState extends State<ProjectSection> {
                             ),
                             Text(
                               projectName[widget.projectid],
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: kBlacColor,
                                   fontSize: 50,
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(
+                            SizedBox(
                                 width: 50,
                                 child: Divider(
                                   thickness: 4,
@@ -276,7 +368,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               child: Text(
                                 "This page contains the case study of ${projectName[widget.projectid]} which includes the Project Overview, Tools Used and Links to the official product.",
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: kBlackColor,
                                   fontSize: 18,
                                   height: 1.2,
@@ -292,7 +384,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                     minimumSize: const Size(250, 60)),
                                 onPressed: () {
                                   ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
+                                      .showSnackBar(SnackBar(
                                           backgroundColor: Colors.amber,
                                           content: Text(
                                             'Project Link Will Be Added Soon...',
@@ -303,7 +395,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                             ),
                                           )));
                                 },
-                                child: const Text(
+                                child: Text(
                                   "Project Link",
                                   style: TextStyle(
                                       color: kBlackColor,
@@ -344,7 +436,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                     ? CrossAxisAlignment.center
                                     : CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Project Overview',
                                 style: TextStyle(
                                     color: kBlacColor,
@@ -357,7 +449,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               ),
                               Text(
                                 content[widget.projectid],
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: kBlackColor,
                                   fontSize: 18,
                                   height: 1.5,
@@ -371,7 +463,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               const SizedBox(
                                 height: 40,
                               ),
-                              const Text(
+                              Text(
                                 'Tech Used',
                                 style: TextStyle(
                                     color: kBlacColor,
@@ -412,7 +504,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                               const SizedBox(
                                 height: 40,
                               ),
-                              const Text(
+                              Text(
                                 'Links',
                                 style: TextStyle(
                                     color: kBlacColor,
@@ -438,7 +530,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                           minimumSize: const Size(200, 60)),
                                       onPressed: () {
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
+                                            .showSnackBar(SnackBar(
                                                 backgroundColor: Colors.amber,
                                                 content: Text(
                                                   'Project Link Will Be Added Soon...',
@@ -449,7 +541,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                                   ),
                                                 )));
                                       },
-                                      child: const Text(
+                                      child: Text(
                                         "Project Link",
                                         style: TextStyle(
                                             color: kBlackColor,
@@ -462,17 +554,17 @@ class _ProjectSectionState extends State<ProjectSection> {
                                   ),
                                   ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          side: const BorderSide(
+                                          side: BorderSide(
                                               width: 2, color: kHoverColor),
                                           backgroundColor: Colors.white,
                                           minimumSize: const Size(200, 60)),
                                       onPressed: () {
                                         Get.toNamed('/');
                                       },
-                                      child: const Text(
+                                      child: Text(
                                         "Go Back",
                                         style: TextStyle(
-                                            color: kBlackColor,
+                                            color: Colors.grey.shade800,
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold),
                                       ))
@@ -487,9 +579,10 @@ class _ProjectSectionState extends State<ProjectSection> {
                       ],
                     ),
                   ),
+
                   //Bottom Section
                   Container(
-                    color: kBlacColor,
+                    color: Colors.black,
                     height: MediaQuery.of(context).size.width < 650 ? 300 : 250,
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.end,
@@ -507,7 +600,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                     const Text(
                                       "AYUSH KUMAR SINGH",
                                       style: TextStyle(
-                                          color: kWhiteColor,
+                                          color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
@@ -522,7 +615,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                         "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: kWhiteColor,
+                                          color: Colors.white,
                                           fontSize: 16,
                                         ),
                                       ),
@@ -535,7 +628,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                       child: Text(
                                         "  SOCIAL",
                                         style: TextStyle(
-                                            color: kWhiteColor,
+                                            color: Colors.white,
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.start,
@@ -558,7 +651,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.github,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                         InkWell(
                                             onTap: () {
@@ -570,12 +663,12 @@ class _ProjectSectionState extends State<ProjectSection> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.linkedin,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                         InkWell(
                                             onTap: () {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
+                                                  .showSnackBar(SnackBar(
                                                       backgroundColor:
                                                           Colors.amber,
                                                       content: Text(
@@ -593,7 +686,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.gmail,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                         InkWell(
                                             onTap: () {
@@ -605,7 +698,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.instagram_square,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                       ],
                                     ),
@@ -627,7 +720,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                         const Text(
                                           "AYUSH KUMAR SINGH",
                                           style: TextStyle(
-                                              color: kWhiteColor,
+                                              color: Colors.white,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.center,
@@ -644,7 +737,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                             "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
                                             // textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: kWhiteColor,
+                                              color: Colors.white,
                                               fontSize: 16,
                                             ),
                                           ),
@@ -660,7 +753,7 @@ class _ProjectSectionState extends State<ProjectSection> {
                                           child: Text(
                                             "SOCIAL",
                                             style: TextStyle(
-                                                color: kWhiteColor,
+                                                color: Colors.white,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.end,
@@ -675,61 +768,77 @@ class _ProjectSectionState extends State<ProjectSection> {
                                                 urlLauncher(
                                                     'https:/github.com/AyushKrSingh000');
                                               },
-                                              child: const SizedBox(
-                                                  // height: 50,
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.github,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Github',
+                                                child: SizedBox(
+                                                    // height: 50,
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.github,
+                                                      color: Colors.white,
+                                                    )),
+                                              )),
                                           InkWell(
                                               onTap: () {
                                                 urlLauncher(
                                                     'https://www.linkedin.com/in/ayush-kumar-singh-9ab626216/');
                                               },
-                                              child: const SizedBox(
-                                                  // height: 50,
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.linkedin,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Linkedin',
+                                                child: SizedBox(
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.linkedin,
+                                                      color: Colors.white,
+                                                    )),
+                                              )),
                                           InkWell(
                                               onTap: () {
                                                 ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                        const SnackBar(
-                                                            backgroundColor:
-                                                                Colors.amber,
-                                                            content: Text(
-                                                              'Gmail Id : ayushkumarsingh0708@gmail.com',
-                                                              style: TextStyle(
-                                                                color:
-                                                                    kBlackColor,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            )));
+                                                    .showSnackBar(SnackBar(
+                                                        backgroundColor:
+                                                            Colors.amber,
+                                                        content: Text(
+                                                          'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                                          style: TextStyle(
+                                                            color: kBlackColor,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        )));
                                               },
-                                              child: const SizedBox(
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.gmail,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Gmail',
+                                                child: SizedBox(
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.gmail,
+                                                      color: Colors.white,
+                                                    )),
+                                              )),
                                           InkWell(
                                               onTap: () {
                                                 urlLauncher(
                                                     'https://www.instagram.com/ayush_kr.singh/');
                                               },
-                                              child: const SizedBox(
-                                                  width: 45,
-                                                  child: Icon(
-                                                    MyIcon.instagram_square,
-                                                    color: kWhiteColor,
-                                                  ))),
+                                              child: const Tooltip(
+                                                showDuration:
+                                                    Duration(microseconds: 5),
+                                                message: 'Instagram',
+                                                child: SizedBox(
+                                                    width: 45,
+                                                    child: Icon(
+                                                      MyIcon.instagram_square,
+                                                      color: Colors.white,
+                                                    )),
+                                              )),
                                         ]),
                                       ],
                                     ),
@@ -740,12 +849,12 @@ class _ProjectSectionState extends State<ProjectSection> {
                           padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: Divider(
                             thickness: 0.5,
-                            color: kWhiteColor,
+                            color: Colors.white,
                           ),
                         ),
                         const Text(
                           '© Copyright 2022. Made by Ayush Kumar Singh',
-                          style: TextStyle(color: kWhiteColor),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ],
                     ),

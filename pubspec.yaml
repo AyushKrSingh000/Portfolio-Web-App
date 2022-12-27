@@ -39,6 +39,7 @@ dependencies:
   url_launcher: ^6.1.7
   animated_text_kit: ^4.2.2
   get: ^4.6.5
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -1,14 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/icons/CustomIcon.dart';
 import 'package:my_portfolio/widgets/project_box.dart';
 import 'package:my_portfolio/widgets/skill_box.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../controllers/hovers_controller.dart';
+import '../controllers/theme_controller.dart';
+
+bool isDarkMode = false;
 
 class HomePage extends StatefulWidget {
   int projectId;
-  HomePage({super.key, required this.projectId});
+  HomePage({
+    Key? key,
+    required this.projectId,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,11 +29,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
-
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final ScrollController _controller = ScrollController();
+
   @override
   void initState() {
     super.initState();
+    getThemeData();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double value = 0;
       if (widget.projectId == 0) {
@@ -52,13 +67,20 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void onReady() {
-    if (widget.projectId == 0) {}
-    _controller.animateTo(
-      0,
-      duration: const Duration(seconds: 1),
-      curve: Curves.fastOutSlowIn,
-    );
+  void getThemeData() async {
+    final SharedPreferences prefs = await _prefs;
+    if (prefs.getBool('darkmode') == null) {
+      return;
+    }
+    setState(() {
+      isDarkMode = prefs.getBool('darkmode') as bool;
+    });
+    changeme(isDarkMode);
+  }
+
+  void setThemeData(bool value) async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setBool('darkmode', value);
   }
 
   @override
@@ -70,6 +92,7 @@ class _HomePageState extends State<HomePage> {
       child: SafeArea(
         child: Scaffold(
           //AppBar
+          backgroundColor: backgroundColor2,
           appBar: AppBar(
             toolbarHeight: 80,
             backgroundColor: kWhiteColor,
@@ -87,16 +110,52 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            title: const Text(
-              "AYUSH KUMAR SINGH",
-              style: TextStyle(color: kBlackColor),
+            title: Row(
+              children: [
+                Text(
+                  MediaQuery.of(context).size.width < 420
+                      ? "AYUSH KR SINGH"
+                      : "AYUSH KUMAR SINGH",
+                  style: TextStyle(color: kBlackColor),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Transform.scale(
+                  scale: MediaQuery.of(context).size.width < 500 ? 0.6 : 0.9,
+                  child: CupertinoSwitch(
+                      activeColor: kHoverColor,
+                      value: isDarkMode,
+                      onChanged: (value) {
+                        setThemeData(value);
+                        if (value) {
+                          Get.changeThemeMode(ThemeMode.dark);
+                          setState(() {
+                            isDarkMode = true;
+                          });
+                        }
+                        if (!value) {
+                          Get.changeThemeMode(ThemeMode.light);
+                          setState(() {
+                            isDarkMode = false;
+                          });
+                        }
+                        setState(() {
+                          changeme(value);
+                        });
+                      }),
+                ),
+              ],
             ),
             actions: [
               MediaQuery.of(context).size.width < 750
                   ? Padding(
                       padding: const EdgeInsets.only(right: 10.0),
                       child: PopupMenuButton<int>(
-                        icon: const Icon(Icons.menu),
+                        icon: Icon(
+                          Icons.menu,
+                          color: kBlacColor,
+                        ),
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             value: 1,
@@ -186,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           PopupMenuItem(
-                            value: 1,
+                            value: 4,
                             child: SizedBox(
                               width: 80,
                               child: HoverBuilder(
@@ -210,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           PopupMenuItem(
-                            value: 4,
+                            value: 5,
                             child: SizedBox(
                               width: 80,
                               child: HoverBuilder(
@@ -255,7 +314,6 @@ class _HomePageState extends State<HomePage> {
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      // crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         HoverBuilder(
                           builder: (isHovered) {
@@ -369,7 +427,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Container(
-                    color: const Color.fromRGBO(244, 244, 244, 1),
+                    color: backgroundColor1,
                     height: 600,
                     child: Row(
                         mainAxisAlignment:
@@ -382,6 +440,7 @@ class _HomePageState extends State<HomePage> {
                               : Card(
                                   color: Colors.white,
                                   elevation: 20,
+                                  shadowColor: kHoverColor,
                                   child: SizedBox(
                                     height: 250,
                                     width: 45,
@@ -443,21 +502,18 @@ class _HomePageState extends State<HomePage> {
                                                   Colors.amber.withOpacity(0.5),
                                               onTap: () {
                                                 ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                        const SnackBar(
-                                                            backgroundColor:
-                                                                Colors.amber,
-                                                            content: Text(
-                                                              'Gmail Id : ayushkumarsingh0708@gmail.com',
-                                                              style: TextStyle(
-                                                                color:
-                                                                    kBlackColor,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            )));
+                                                    .showSnackBar(SnackBar(
+                                                        backgroundColor:
+                                                            Colors.amber,
+                                                        content: Text(
+                                                          'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                                          style: TextStyle(
+                                                            color: kBlackColor,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        )));
                                               },
                                               child: const Tooltip(
                                                 showDuration:
@@ -510,7 +566,7 @@ class _HomePageState extends State<HomePage> {
                                     animatedTexts: [
                                       TypewriterAnimatedText(
                                         'Hello Hi there!',
-                                        textStyle: const TextStyle(
+                                        textStyle: TextStyle(
                                             color: kBlacColor,
                                             fontSize: 50,
                                             fontWeight: FontWeight.bold),
@@ -520,7 +576,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       TypewriterAnimatedText(
                                         "I'M AYUSH KUMAR SINGH",
-                                        textStyle: const TextStyle(
+                                        textStyle: TextStyle(
                                             color: kBlacColor,
                                             fontSize: 50,
                                             fontWeight: FontWeight.bold),
@@ -530,7 +586,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       TypewriterAnimatedText(
                                         'A Passionate App Developer From India',
-                                        textStyle: const TextStyle(
+                                        textStyle: TextStyle(
                                             color: kBlacColor,
                                             fontSize: 50,
                                             fontWeight: FontWeight.bold),
@@ -540,7 +596,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       TypewriterAnimatedText(
                                         'I Love Coding',
-                                        textStyle: const TextStyle(
+                                        textStyle: TextStyle(
                                             color: kBlacColor,
                                             fontSize: 50,
                                             fontWeight: FontWeight.bold),
@@ -550,7 +606,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       TypewriterAnimatedText(
                                         'And Developing Apps',
-                                        textStyle: const TextStyle(
+                                        textStyle: TextStyle(
                                             color: kBlacColor,
                                             fontSize: 50,
                                             fontWeight: FontWeight.bold),
@@ -564,7 +620,7 @@ class _HomePageState extends State<HomePage> {
                                     displayFullTextOnTap: true,
                                     stopPauseOnTap: true,
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                       width: 50,
                                       child: Divider(
                                         thickness: 4,
@@ -576,7 +632,7 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width / 1.3,
-                                    child: const Text(
+                                    child: Text(
                                       "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -603,7 +659,7 @@ class _HomePageState extends State<HomePage> {
                                           curve: Curves.fastOutSlowIn,
                                         );
                                       },
-                                      child: const Text(
+                                      child: Text(
                                         "PROJECTS",
                                         style: TextStyle(
                                             color: kBlackColor,
@@ -623,7 +679,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           height: 50,
                         ),
-                        const Text(
+                        Text(
                           "ABOUT ME!",
                           style: TextStyle(
                               color: kBlacColor,
@@ -631,7 +687,7 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(
+                        SizedBox(
                             width: 50,
                             child: Divider(
                               thickness: 4,
@@ -642,7 +698,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.2,
-                          child: const Text(
+                          child: Text(
                             "Here you will find more information about me, what I do, and my current skills mostly in terms of programming and technology.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -668,7 +724,7 @@ class _HomePageState extends State<HomePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            const Text(
+                                            Text(
                                               "Get to know me!",
                                               style: TextStyle(
                                                   color: kBlacColor,
@@ -684,7 +740,7 @@ class _HomePageState extends State<HomePage> {
                                                       .size
                                                       .width /
                                                   1.2,
-                                              child: const Text(
+                                              child: Text(
                                                 "Hi there! I am a second-year student currently pursuing a degree in Computer Science. I am an aspiring app developer with a passion for creating intuitive and user-friendly mobile experiences. In my free time, I love to code and experiment with new technologies.\n \nI am also a proud winner of the Smart India Hackathon , where I had the opportunity to showcase my skills and develop innovative solutions to real-world problems. I am excited to continue learning and growing as a developer, and I am always open to new opportunities and challenges.",
                                                 style: TextStyle(
                                                   color: kBlackColor,
@@ -708,7 +764,7 @@ class _HomePageState extends State<HomePage> {
                                                   onPressed: () {
                                                     urlLauncher(resumeLink);
                                                   },
-                                                  child: const Text(
+                                                  child: Text(
                                                     "VIEW RESUME",
                                                     style: TextStyle(
                                                         color: kBlackColor,
@@ -730,7 +786,7 @@ class _HomePageState extends State<HomePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          const Text(
+                                          Text(
                                             "My Skills",
                                             style: TextStyle(
                                                 color: kBlacColor,
@@ -781,7 +837,7 @@ class _HomePageState extends State<HomePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
+                                          Text(
                                             "Get to know me!",
                                             style: TextStyle(
                                                 color: kBlacColor,
@@ -797,7 +853,7 @@ class _HomePageState extends State<HomePage> {
                                                     .size
                                                     .width /
                                                 2.2,
-                                            child: const Text(
+                                            child: Text(
                                               "Hi there! I am a second-year student currently pursuing a degree in Computer Science. I am an aspiring app developer with a passion for creating intuitive and user-friendly mobile experiences. In my free time, I love to code and experiment with new technologies.\n \nI am also a proud winner of the Smart India Hackathon , where I had the opportunity to showcase my skills and develop innovative solutions to real-world problems. I am excited to continue learning and growing as a developer, and I am always open to new opportunities and challenges.",
                                               style: TextStyle(
                                                 color: kBlackColor,
@@ -817,7 +873,7 @@ class _HomePageState extends State<HomePage> {
                                               onPressed: () {
                                                 urlLauncher(resumeLink);
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 "VIEW RESUME",
                                                 style: TextStyle(
                                                     color: kBlackColor,
@@ -841,7 +897,7 @@ class _HomePageState extends State<HomePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
+                                          Text(
                                             "My Skills",
                                             style: TextStyle(
                                                 color: kBlacColor,
@@ -889,7 +945,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   //Project Section
                   Container(
-                    color: const Color.fromRGBO(244, 244, 244, 1),
+                    color: backgroundColor1,
                     height: MediaQuery.of(context).size.width < 760
                         ? (MediaQuery.of(context).size.width < 600
                             ? MediaQuery.of(context).size.width * 5
@@ -903,7 +959,7 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Text(
+                            Text(
                               "PROJECTS",
                               style: TextStyle(
                                   color: kBlacColor,
@@ -911,7 +967,7 @@ class _HomePageState extends State<HomePage> {
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(
+                            SizedBox(
                                 width: 50,
                                 child: Divider(
                                   thickness: 4,
@@ -922,7 +978,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 1.5,
-                              child: const Text(
+                              child: Text(
                                 "Here you will find some of the projects that I created with each project containing its own case study",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -931,7 +987,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
+                            SizedBox(
                                 width: 350,
                                 height: 20,
                                 child: Center(
@@ -951,7 +1007,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Google Docs Clone",
                                     info: projects[0],
                                     projectid: 0),
-                            const SizedBox(
+                            SizedBox(
                                 width: 350,
                                 height: 40,
                                 child: Center(
@@ -971,7 +1027,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Vriddhi SIH",
                                     info: projects[1],
                                     projectid: 1),
-                            const SizedBox(
+                            SizedBox(
                                 width: 350,
                                 height: 40,
                                 child: Center(
@@ -991,7 +1047,7 @@ class _HomePageState extends State<HomePage> {
                                     title: "Expense Tracker App",
                                     info: projects[2],
                                     projectid: 2),
-                            const SizedBox(
+                            SizedBox(
                                 width: 350,
                                 height: 40,
                                 child: Center(
@@ -1026,7 +1082,7 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 30,
                             ),
-                            const Text(
+                            Text(
                               "CONTACT",
                               style: TextStyle(
                                   color: kBlacColor,
@@ -1034,7 +1090,7 @@ class _HomePageState extends State<HomePage> {
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(
+                            SizedBox(
                                 width: 50,
                                 child: Divider(
                                   thickness: 4,
@@ -1045,7 +1101,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 1.5,
-                              child: const Text(
+                              child: Text(
                                 "Feel free to Contact me by submitting the form below and I will get back to you as soon as possible",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -1060,7 +1116,7 @@ class _HomePageState extends State<HomePage> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Card(
-                                color: Colors.white,
+                                color: contactCard,
                                 elevation: 5,
                                 child: SizedBox(
                                   width: 900,
@@ -1074,7 +1130,7 @@ class _HomePageState extends State<HomePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            const Text(
+                                            Text(
                                               'Name',
                                               style: TextStyle(
                                                   letterSpacing: 1,
@@ -1093,8 +1149,7 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               cursorColor: Colors.black,
                                               decoration: InputDecoration(
-                                                  fillColor:
-                                                      Colors.grey.shade200,
+                                                  fillColor: textbox,
                                                   filled: true,
                                                   prefixIcon:
                                                       const Icon(Icons.person),
@@ -1123,7 +1178,7 @@ class _HomePageState extends State<HomePage> {
                                             const SizedBox(
                                               height: 40,
                                             ),
-                                            const Text(
+                                            Text(
                                               'Email',
                                               style: TextStyle(
                                                   letterSpacing: 1,
@@ -1142,8 +1197,7 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               cursorColor: Colors.black,
                                               decoration: InputDecoration(
-                                                  fillColor:
-                                                      Colors.grey.shade200,
+                                                  fillColor: textbox,
                                                   filled: true,
                                                   prefixIcon:
                                                       const Icon(Icons.email),
@@ -1172,7 +1226,7 @@ class _HomePageState extends State<HomePage> {
                                             const SizedBox(
                                               height: 40,
                                             ),
-                                            const Text(
+                                            Text(
                                               'Message',
                                               style: TextStyle(
                                                   letterSpacing: 1,
@@ -1194,8 +1248,7 @@ class _HomePageState extends State<HomePage> {
                                               maxLines: 10,
                                               cursorColor: Colors.black,
                                               decoration: InputDecoration(
-                                                  fillColor:
-                                                      Colors.grey.shade200,
+                                                  fillColor: textbox,
                                                   filled: true,
                                                   hintText: 'Message',
                                                   enabledBorder:
@@ -1241,7 +1294,7 @@ class _HomePageState extends State<HomePage> {
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(
-                                                        const SnackBar(
+                                                        SnackBar(
                                                             backgroundColor:
                                                                 Colors.amber,
                                                             content: Text(
@@ -1258,7 +1311,7 @@ class _HomePageState extends State<HomePage> {
                                                       );
                                                     }
                                                   },
-                                                  child: const Text(
+                                                  child: Text(
                                                     "SUBMIT",
                                                     style: TextStyle(
                                                         color: kBlackColor,
@@ -1278,7 +1331,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   //Bottom Sections
                   Container(
-                    color: kBlacColor,
+                    color: Colors.black,
                     height: MediaQuery.of(context).size.width < 650 ? 300 : 250,
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.end,
@@ -1296,7 +1349,7 @@ class _HomePageState extends State<HomePage> {
                                     const Text(
                                       "AYUSH KUMAR SINGH",
                                       style: TextStyle(
-                                          color: kWhiteColor,
+                                          color: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold),
                                       textAlign: TextAlign.center,
@@ -1311,7 +1364,7 @@ class _HomePageState extends State<HomePage> {
                                         "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: kWhiteColor,
+                                          color: Colors.white,
                                           fontSize: 16,
                                         ),
                                       ),
@@ -1324,7 +1377,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Text(
                                         "  SOCIAL",
                                         style: TextStyle(
-                                            color: kWhiteColor,
+                                            color: Colors.white,
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.start,
@@ -1347,7 +1400,7 @@ class _HomePageState extends State<HomePage> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.github,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                         InkWell(
                                             onTap: () {
@@ -1359,12 +1412,12 @@ class _HomePageState extends State<HomePage> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.linkedin,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                         InkWell(
                                             onTap: () {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
+                                                  .showSnackBar(SnackBar(
                                                       backgroundColor:
                                                           Colors.amber,
                                                       content: Text(
@@ -1382,7 +1435,7 @@ class _HomePageState extends State<HomePage> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.gmail,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                         InkWell(
                                             onTap: () {
@@ -1394,7 +1447,7 @@ class _HomePageState extends State<HomePage> {
                                                 width: 45,
                                                 child: Icon(
                                                   MyIcon.instagram_square,
-                                                  color: kWhiteColor,
+                                                  color: Colors.white,
                                                 ))),
                                       ],
                                     ),
@@ -1416,7 +1469,7 @@ class _HomePageState extends State<HomePage> {
                                         const Text(
                                           "AYUSH KUMAR SINGH",
                                           style: TextStyle(
-                                              color: kWhiteColor,
+                                              color: Colors.white,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.center,
@@ -1433,7 +1486,7 @@ class _HomePageState extends State<HomePage> {
                                             "A Full Stack App Developer building  andriod, ios applications that leads to the success of the overall product",
                                             // textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: kWhiteColor,
+                                              color: Colors.white,
                                               fontSize: 16,
                                             ),
                                           ),
@@ -1449,7 +1502,7 @@ class _HomePageState extends State<HomePage> {
                                           child: Text(
                                             "SOCIAL",
                                             style: TextStyle(
-                                                color: kWhiteColor,
+                                                color: Colors.white,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.end,
@@ -1473,7 +1526,7 @@ class _HomePageState extends State<HomePage> {
                                                     width: 45,
                                                     child: Icon(
                                                       MyIcon.github,
-                                                      color: kWhiteColor,
+                                                      color: Colors.white,
                                                     )),
                                               )),
                                           InkWell(
@@ -1489,27 +1542,24 @@ class _HomePageState extends State<HomePage> {
                                                     width: 45,
                                                     child: Icon(
                                                       MyIcon.linkedin,
-                                                      color: kWhiteColor,
+                                                      color: Colors.white,
                                                     )),
                                               )),
                                           InkWell(
                                               onTap: () {
                                                 ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                        const SnackBar(
-                                                            backgroundColor:
-                                                                Colors.amber,
-                                                            content: Text(
-                                                              'Gmail Id : ayushkumarsingh0708@gmail.com',
-                                                              style: TextStyle(
-                                                                color:
-                                                                    kBlackColor,
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            )));
+                                                    .showSnackBar(SnackBar(
+                                                        backgroundColor:
+                                                            Colors.amber,
+                                                        content: Text(
+                                                          'Gmail Id : ayushkumarsingh0708@gmail.com',
+                                                          style: TextStyle(
+                                                            color: kBlackColor,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        )));
                                               },
                                               child: const Tooltip(
                                                 showDuration:
@@ -1519,7 +1569,7 @@ class _HomePageState extends State<HomePage> {
                                                     width: 45,
                                                     child: Icon(
                                                       MyIcon.gmail,
-                                                      color: kWhiteColor,
+                                                      color: Colors.white,
                                                     )),
                                               )),
                                           InkWell(
@@ -1535,7 +1585,7 @@ class _HomePageState extends State<HomePage> {
                                                     width: 45,
                                                     child: Icon(
                                                       MyIcon.instagram_square,
-                                                      color: kWhiteColor,
+                                                      color: Colors.white,
                                                     )),
                                               )),
                                         ]),
@@ -1548,12 +1598,12 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: Divider(
                             thickness: 0.5,
-                            color: kWhiteColor,
+                            color: Colors.white,
                           ),
                         ),
                         const Text(
                           '© Copyright 2022. Made by Ayush Kumar Singh',
-                          style: TextStyle(color: kWhiteColor),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ],
                     ),

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../constants.dart';
+import '../controllers/theme_controller.dart';
 
 class ProjectBoxHorizontal extends StatelessWidget {
   String imageName;
@@ -31,7 +31,7 @@ class ProjectBoxHorizontal extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                   color: kBlacColor, fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -43,7 +43,7 @@ class ProjectBoxHorizontal extends StatelessWidget {
               child: Text(
                 info,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   color: kBlackColor,
                   fontSize: 18,
                 ),
@@ -69,7 +69,7 @@ class ProjectBoxHorizontal extends StatelessWidget {
                     Get.toNamed('/project4');
                   }
                 },
-                child: const Text(
+                child: Text(
                   "CASE STUDY",
                   style: TextStyle(
                       color: kBlackColor,
@@ -109,7 +109,7 @@ class ProjectBoxVertical extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                   color: kBlacColor, fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -121,7 +121,7 @@ class ProjectBoxVertical extends StatelessWidget {
               child: Text(
                 info,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   color: kBlackColor,
                   fontSize: 18,
                 ),
@@ -158,7 +158,7 @@ class ProjectBoxVertical extends StatelessWidget {
                   //       ),
                   //     )));
                 },
-                child: const Text(
+                child: Text(
                   "CASE STUDY",
                   style: TextStyle(
                       color: kBlackColor,
