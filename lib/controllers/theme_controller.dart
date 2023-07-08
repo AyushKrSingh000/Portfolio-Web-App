@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 Color kWhiteColor = Colors.white;
 Color kBlackColor = const Color.fromARGB(255, 50, 48, 48);
-Color kHoverColor = Colors.amber;
+
 
 Color textbox = Colors.grey.shade200;
 Color contactCard = Colors.white;

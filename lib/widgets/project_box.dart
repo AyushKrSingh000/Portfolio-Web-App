@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:google_fonts/google_fonts.dart';
+import 'package:my_portfolio/src/routing/router.dart';
 
 import '../controllers/theme_controller.dart';
 
@@ -31,7 +34,7 @@ class ProjectBoxHorizontal extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: GoogleFonts.outfit(
                   color: kBlacColor, fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -43,7 +46,7 @@ class ProjectBoxHorizontal extends StatelessWidget {
               child: Text(
                 info,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: GoogleFonts.outfit(
                   color: kBlackColor,
                   fontSize: 18,
                 ),
@@ -56,22 +59,11 @@ class ProjectBoxHorizontal extends StatelessWidget {
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
                 onPressed: () {
-                  if (projectid == 0) {
-                    Get.toNamed('/project1');
-                  }
-                  if (projectid == 1) {
-                    Get.toNamed('/project2');
-                  }
-                  if (projectid == 2) {
-                    Get.toNamed('/project3');
-                  }
-                  if (projectid == 3) {
-                    Get.toNamed('/project4');
-                  }
+                  context.navigateTo(ProjectRoute(projectid: projectid));
                 },
                 child: Text(
                   "CASE STUDY",
-                  style: TextStyle(
+                  style: GoogleFonts.outfit(
                       color: kBlackColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
@@ -109,7 +101,7 @@ class ProjectBoxVertical extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: GoogleFonts.outfit(
                   color: kBlacColor, fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -121,7 +113,7 @@ class ProjectBoxVertical extends StatelessWidget {
               child: Text(
                 info,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: GoogleFonts.outfit(
                   color: kBlackColor,
                   fontSize: 18,
                 ),
@@ -134,33 +126,11 @@ class ProjectBoxVertical extends StatelessWidget {
                 style:
                     ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
                 onPressed: () {
-                  if (projectid == 0) {
-                    Get.toNamed('/project1');
-                  }
-                  if (projectid == 1) {
-                    Get.toNamed('/project2');
-                  }
-                  if (projectid == 2) {
-                    Get.toNamed('/project3');
-                  }
-                  if (projectid == 3) {
-                    Get.toNamed('/project4');
-                  }
-                  // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  //     duration: Duration(seconds: 1),
-                  //     backgroundColor: Colors.amber,
-                  //     content: Text(
-                  //       'Case Study Will Be Added Soon...',
-                  //       style: TextStyle(
-                  //         color: kBlackColor,
-                  //         fontSize: 15,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     )));
+                  context.navigateTo(ProjectRoute(projectid: projectid));
                 },
                 child: Text(
                   "CASE STUDY",
-                  style: TextStyle(
+                  style: GoogleFonts.outfit(
                       color: kBlackColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),

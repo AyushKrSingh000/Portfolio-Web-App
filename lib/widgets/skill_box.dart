@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:my_portfolio/constants.dart';
 
@@ -42,7 +43,7 @@ class SkillBox extends StatelessWidget {
                   width: 90,
                   child: Text(
                     skillName,
-                    style: TextStyle(color: kBlackColor, fontSize: 18),
+                    style: GoogleFonts.outfit(color: kBlackColor, fontSize: 18),
                   ),
                 ),
               ],

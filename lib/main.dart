@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_portfolio/routes/router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/services.dart';
+import 'package:my_portfolio/src/logic/preference_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'src/app.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Ayush Kumar Singh Portfolio',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      initialRoute: '/',
-      getPages: routes,
-    );
-  }
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Colors.black,
+      systemNavigationBarColor: Colors.black,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ),
+  );
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+  final container = ProviderContainer(overrides: [
+    sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+  ]);
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const MyApp(),
+    ),
+  );
 }
