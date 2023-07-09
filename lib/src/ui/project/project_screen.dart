@@ -10,10 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../../controllers/hovers_controller.dart';
-import '../../../controllers/theme_controller.dart';
+
 import '../../../icons/CustomIcon.dart';
 import '../../../widgets/skill_box.dart';
 import '../../constants/colors.dart';
+import '../../utils/color_utils.dart';
 
 @RoutePage()
 class ProjectPage extends ConsumerStatefulWidget {
@@ -51,17 +52,19 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor2,
         appBar: AppBar(
           toolbarHeight: 80,
-          backgroundColor: kWhiteColor,
+          backgroundColor: ColorUtils.getColor(
+            context,
+            textFieldTextColor,
+          ),
           elevation: 0,
           leading: Row(
             children: const [
               Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: CircleAvatar(
-                  backgroundColor: Colors.amber,
+                  backgroundColor: primaryColor,
                   radius: 20,
                   backgroundImage:
                       ExactAssetImage('assets/project_images/photo.jpg'),
@@ -75,7 +78,12 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                 MediaQuery.of(context).size.width < 420
                     ? "AYUSH KR SINGH"
                     : "AYUSH KUMAR SINGH",
-                style: GoogleFonts.outfit(color: kBlackColor),
+                style: GoogleFonts.outfit(
+                  color: ColorUtils.getColor(
+                    context,
+                    textFieldTextColor,
+                  ),
+                ),
               ),
               const SizedBox(
                 width: 5,
@@ -96,7 +104,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                     child: PopupMenuButton<int>(
                       icon: Icon(
                         Icons.menu,
-                        color: kBlacColor,
+                        color: ColorUtils.getColor(
+                          context,
+                          textFieldTextColor,
+                        ),
                       ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
@@ -114,7 +125,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                     style: GoogleFonts.outfit(
                                         color: isHovered
                                             ? primaryColor
-                                            : kBlackColor,
+                                            : ColorUtils.getColor(
+                                                context,
+                                                textFieldTextColor,
+                                              ),
                                         fontWeight: FontWeight.bold,
                                         fontSize: fontsize),
                                   ),
@@ -138,7 +152,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                     style: GoogleFonts.outfit(
                                         color: isHovered
                                             ? primaryColor
-                                            : kBlackColor,
+                                            : ColorUtils.getColor(
+                                                context,
+                                                textFieldTextColor,
+                                              ),
                                         fontWeight: FontWeight.bold,
                                         fontSize: fontsize),
                                   ),
@@ -162,7 +179,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                     style: GoogleFonts.outfit(
                                         color: isHovered
                                             ? primaryColor
-                                            : kBlackColor,
+                                            : ColorUtils.getColor(
+                                                context,
+                                                textFieldTextColor,
+                                              ),
                                         fontWeight: FontWeight.bold,
                                         fontSize: fontsize),
                                   ),
@@ -186,7 +206,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                     style: GoogleFonts.outfit(
                                         color: isHovered
                                             ? primaryColor
-                                            : kBlackColor,
+                                            : ColorUtils.getColor(
+                                                context,
+                                                textFieldTextColor,
+                                              ),
                                         fontWeight: FontWeight.bold,
                                         fontSize: fontsize),
                                   ),
@@ -210,7 +233,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                     style: GoogleFonts.outfit(
                                         color: isHovered
                                             ? primaryColor
-                                            : kBlackColor,
+                                            : ColorUtils.getColor(
+                                                context,
+                                                textFieldTextColor,
+                                              ),
                                         fontWeight: FontWeight.bold,
                                         fontSize: fontsize),
                                   ),
@@ -238,7 +264,12 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                             child: Text(
                               "HOME",
                               style: GoogleFonts.outfit(
-                                  color: isHovered ? primaryColor : kBlackColor,
+                                  color: isHovered
+                                      ? primaryColor
+                                      : ColorUtils.getColor(
+                                          context,
+                                          textFieldTextColor,
+                                        ),
                                   fontWeight: FontWeight.bold,
                                   fontSize: fontsize),
                             ),
@@ -257,7 +288,12 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                             child: Text(
                               "ABOUT",
                               style: GoogleFonts.outfit(
-                                  color: isHovered ? primaryColor : kBlackColor,
+                                  color: isHovered
+                                      ? primaryColor
+                                      : ColorUtils.getColor(
+                                          context,
+                                          textFieldTextColor,
+                                        ),
                                   fontWeight: FontWeight.bold,
                                   fontSize: fontsize),
                             ),
@@ -276,7 +312,12 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                             child: Text(
                               "PROJECTS",
                               style: GoogleFonts.outfit(
-                                  color: isHovered ? primaryColor : kBlackColor,
+                                  color: isHovered
+                                      ? primaryColor
+                                      : ColorUtils.getColor(
+                                          context,
+                                          textFieldTextColor,
+                                        ),
                                   fontWeight: FontWeight.bold,
                                   fontSize: fontsize),
                             ),
@@ -295,7 +336,12 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                             child: Text(
                               "CONTACTS",
                               style: GoogleFonts.outfit(
-                                  color: isHovered ? primaryColor : kBlackColor,
+                                  color: isHovered
+                                      ? primaryColor
+                                      : ColorUtils.getColor(
+                                          context,
+                                          textFieldTextColor,
+                                        ),
                                   fontWeight: FontWeight.bold,
                                   fontSize: fontsize),
                             ),
@@ -319,7 +365,6 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
               child: Column(
                 children: [
                   Container(
-                    color: backgroundColor1,
                     height: 430,
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
@@ -332,7 +377,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                             Text(
                               projectName[widget.projectid],
                               style: GoogleFonts.outfit(
-                                  color: kBlacColor,
+                                  color: ColorUtils.getColor(
+                                    context,
+                                    textFieldTextColor,
+                                  ),
                                   fontSize: 50,
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
@@ -352,7 +400,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                 "This page contains the case study of ${projectName[widget.projectid]} which includes the Project Overview, Tools Used and Links to the official product.",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.outfit(
-                                  color: kBlackColor,
+                                  color: ColorUtils.getColor(
+                                    context,
+                                    textFieldTextColor,
+                                  ),
                                   fontSize: 18,
                                   height: 1.2,
                                   wordSpacing: 2,
@@ -368,11 +419,14 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                 onPressed: () {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
-                                          backgroundColor: Colors.amber,
+                                          backgroundColor: primaryColor,
                                           content: Text(
                                             'Project Link Will Be Added Soon...',
                                             style: GoogleFonts.outfit(
-                                              color: kBlackColor,
+                                              color: ColorUtils.getColor(
+                                                context,
+                                                textFieldTextColor,
+                                              ),
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -381,7 +435,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                 child: Text(
                                   "Project Link",
                                   style: GoogleFonts.outfit(
-                                      color: kBlackColor,
+                                      color: ColorUtils.getColor(
+                                        context,
+                                        textFieldTextColor,
+                                      ),
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ))
@@ -422,7 +479,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                               Text(
                                 'Project Overview',
                                 style: GoogleFonts.outfit(
-                                    color: kBlacColor,
+                                    color: ColorUtils.getColor(
+                                      context,
+                                      textFieldTextColor,
+                                    ),
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.start,
@@ -433,7 +493,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                               Text(
                                 content[widget.projectid],
                                 style: GoogleFonts.outfit(
-                                  color: kBlackColor,
+                                  color: ColorUtils.getColor(
+                                    context,
+                                    textFieldTextColor,
+                                  ),
                                   fontSize: 18,
                                   height: 1.5,
                                   wordSpacing: 2,
@@ -449,7 +512,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                               Text(
                                 'Tech Used',
                                 style: GoogleFonts.outfit(
-                                    color: kBlacColor,
+                                    color: ColorUtils.getColor(
+                                      context,
+                                      textFieldTextColor,
+                                    ),
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.start,
@@ -490,7 +556,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                               Text(
                                 'Links',
                                 style: GoogleFonts.outfit(
-                                    color: kBlacColor,
+                                    color: ColorUtils.getColor(
+                                      context,
+                                      textFieldTextColor,
+                                    ),
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.start,
@@ -514,11 +583,14 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                       onPressed: () {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
-                                                backgroundColor: Colors.amber,
+                                                backgroundColor: primaryColor,
                                                 content: Text(
                                                   'Project Link Will Be Added Soon...',
                                                   style: GoogleFonts.outfit(
-                                                    color: kBlackColor,
+                                                    color: ColorUtils.getColor(
+                                                      context,
+                                                      textFieldTextColor,
+                                                    ),
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -527,7 +599,10 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                       child: Text(
                                         "Project Link",
                                         style: GoogleFonts.outfit(
-                                            color: kBlackColor,
+                                            color: ColorUtils.getColor(
+                                              context,
+                                              textFieldTextColor,
+                                            ),
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold),
                                       )),
@@ -653,12 +728,16 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                       backgroundColor:
-                                                          Colors.amber,
+                                                          primaryColor,
                                                       content: Text(
                                                         'Gmail Id : ayushkumarsingh0708@gmail.com',
                                                         style:
                                                             GoogleFonts.outfit(
-                                                          color: kBlackColor,
+                                                          color: ColorUtils
+                                                              .getColor(
+                                                            context,
+                                                            textFieldTextColor,
+                                                          ),
                                                           fontSize: 15,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -785,12 +864,16 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(SnackBar(
                                                         backgroundColor:
-                                                            Colors.amber,
+                                                            primaryColor,
                                                         content: Text(
                                                           'Gmail Id : ayushkumarsingh0708@gmail.com',
                                                           style: GoogleFonts
                                                               .outfit(
-                                                            color: kBlackColor,
+                                                            color: ColorUtils
+                                                                .getColor(
+                                                              context,
+                                                              textFieldTextColor,
+                                                            ),
                                                             fontSize: 15,
                                                             fontWeight:
                                                                 FontWeight.bold,

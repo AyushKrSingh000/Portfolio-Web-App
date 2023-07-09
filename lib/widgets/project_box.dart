@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/src/routing/router.dart';
 
-import '../controllers/theme_controller.dart';
+import '../src/constants/colors.dart';
+import '../src/utils/color_utils.dart';
 
 class ProjectBoxHorizontal extends StatelessWidget {
   String imageName;
@@ -35,7 +36,12 @@ class ProjectBoxHorizontal extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.outfit(
-                  color: kBlacColor, fontSize: 30, fontWeight: FontWeight.bold),
+                  color: ColorUtils.getColor(
+                    context,
+                    textFieldTextColor,
+                  ),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -47,7 +53,10 @@ class ProjectBoxHorizontal extends StatelessWidget {
                 info,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.outfit(
-                  color: kBlackColor,
+                  color: ColorUtils.getColor(
+                    context,
+                    textFieldTextColor,
+                  ),
                   fontSize: 18,
                 ),
               ),
@@ -64,7 +73,10 @@ class ProjectBoxHorizontal extends StatelessWidget {
                 child: Text(
                   "CASE STUDY",
                   style: GoogleFonts.outfit(
-                      color: kBlackColor,
+                      color: ColorUtils.getColor(
+                        context,
+                        textFieldTextColor,
+                      ),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 )),
@@ -102,7 +114,12 @@ class ProjectBoxVertical extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.outfit(
-                  color: kBlacColor, fontSize: 30, fontWeight: FontWeight.bold),
+                  color: ColorUtils.getColor(
+                    context,
+                    textFieldTextColor,
+                  ),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -114,7 +131,10 @@ class ProjectBoxVertical extends StatelessWidget {
                 info,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.outfit(
-                  color: kBlackColor,
+                  color: ColorUtils.getColor(
+                    context,
+                    textFieldTextColor,
+                  ),
                   fontSize: 18,
                 ),
               ),
@@ -131,7 +151,10 @@ class ProjectBoxVertical extends StatelessWidget {
                 child: Text(
                   "CASE STUDY",
                   style: GoogleFonts.outfit(
-                      color: kBlackColor,
+                      color: ColorUtils.getColor(
+                        context,
+                        textFieldTextColor,
+                      ),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 )),

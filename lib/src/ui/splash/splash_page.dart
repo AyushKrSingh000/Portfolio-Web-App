@@ -26,10 +26,15 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Center(
         child: Lottie.asset(
-          'assets/lottie/name.json',
+          isDark
+              ? 'assets/lottie/dark_splash.json'
+              : 'assets/lottie/light_splash.json',
+          fit: BoxFit.fill,
+          width: MediaQuery.of(context).size.width,
         ),
       ),
     );
@@ -37,7 +42,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   _navigateAfterDelay() async {
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
     );
     context.replaceRoute(HomeRoute());
   }

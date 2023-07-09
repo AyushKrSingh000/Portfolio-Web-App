@@ -2,46 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../utils/color_utils.dart';
 
-const primaryColor = Color.fromARGB(255, 10, 131, 129);
-
-const profileContainerColor = AppCustomColor(
-  lightThemeColor: Color.fromARGB(255, 227, 222, 222),
-  darkThemeColor: Color(0xFF262626),
-);
-
-const freeTierMessageBGColor = AppCustomColor(
-  lightThemeColor: Color(0xFFF5F5F5),
-  darkThemeColor: Color(0xFF262626),
-);
-
-const freeTierMessageTextColor = AppCustomColor(
-  lightThemeColor: Color(0xFF000000),
-  darkThemeColor: Color(0xFFFEFEFE),
-);
-
+const primaryColor = Color(0xffd52941);
+const secondaryColor = Color(0xff990d35);
 const scaffoldColor = AppCustomColor(
-  lightThemeColor: Colors.white,
-  darkThemeColor: Color(0xFF1C1C1C),
+  lightThemeColor: Color(0xfffbfaf6),
+  darkThemeColor: Color(0xff001b2e),
 );
-
+const prmaryTextColor = AppCustomColor(
+  lightThemeColor: Color(0xff011627),
+  darkThemeColor: Color(0xfffffbe8),
+);
+const secondaryTextColor = AppCustomColor(
+  lightThemeColor: Color(0xff2a2e34),
+  darkThemeColor: Color(0xfffbfaf6),
+);
 const hintTextColor = AppCustomColor(
   lightThemeColor: Color(0xFF5D5D5D),
   darkThemeColor: Color.fromRGBO(255, 255, 255, 0.7),
 );
 
-const subHeadingTextColor = AppCustomColor(
-  lightThemeColor: Color(0xFF5D5D5D),
-  darkThemeColor: Color(0xFFFFFFFF),
-);
-
-final sortOptionLineColor = AppCustomColor(
-  lightThemeColor: const Color(0xFF5D5D5D),
-  darkThemeColor: const Color(0xFFFFFFFF).withOpacity(0.4),
-);
-
-const textFieldTextColor = AppCustomColor(
-  lightThemeColor: Colors.black,
-  darkThemeColor: Colors.white,
+const profileContainerColor = AppCustomColor(
+  lightThemeColor: Color.fromARGB(255, 227, 222, 222),
+  darkThemeColor: Color(0xFF262626),
 );
 
 const textFieldBorderColor = AppCustomColor(
@@ -52,6 +34,29 @@ const textFieldBorderColor = AppCustomColor(
 const textFieldBgColor = AppCustomColor(
   lightThemeColor: Color(0xFFFFFFFF),
   darkThemeColor: Color(0xFF292929),
+);
+const textFieldTextColor = AppCustomColor(
+  lightThemeColor: Colors.black,
+  darkThemeColor: Colors.white,
+);
+const lightSecondaryColor = AppCustomColor(
+  lightThemeColor: Color(0xFFF5F5F5),
+  darkThemeColor: Color.fromARGB(255, 33, 32, 32),
+);
+
+const darkSecondaryColor = AppCustomColor(
+  lightThemeColor: Color(0xFFF6F6F6),
+  darkThemeColor: Color(0xFF262626),
+);
+
+const subHeadingTextColor = AppCustomColor(
+  lightThemeColor: Color(0xFF5D5D5D),
+  darkThemeColor: Color(0xFFFFFFFF),
+);
+
+final sortOptionLineColor = AppCustomColor(
+  lightThemeColor: const Color(0xFF5D5D5D),
+  darkThemeColor: const Color(0xFFFFFFFF).withOpacity(0.4),
 );
 
 const otpFieldBgColor = AppCustomColor(

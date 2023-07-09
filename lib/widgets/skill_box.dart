@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:my_portfolio/constants.dart';
 
-import '../controllers/theme_controller.dart';
+import '../src/constants/colors.dart';
+import '../src/utils/color_utils.dart';
 
 class SkillBox extends StatelessWidget {
   String skillName;
@@ -25,9 +26,8 @@ class SkillBox extends StatelessWidget {
       child: InkWell(
         child: Card(
           elevation: 0.1,
-          color: kGreyColor,
           child: InkWell(
-            hoverColor: Colors.amber.shade300,
+            hoverColor: primaryColor,
             onTap: () {
               urlLauncher(url);
             },
@@ -43,7 +43,12 @@ class SkillBox extends StatelessWidget {
                   width: 90,
                   child: Text(
                     skillName,
-                    style: GoogleFonts.outfit(color: kBlackColor, fontSize: 18),
+                    style: GoogleFonts.outfit(
+                        color: ColorUtils.getColor(
+                          context,
+                          textFieldTextColor,
+                        ),
+                        fontSize: 18),
                   ),
                 ),
               ],

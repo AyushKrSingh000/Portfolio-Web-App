@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../controllers/hovers_controller.dart';
-import '../../../../../controllers/theme_controller.dart';
+
 import '../../../../constants/colors.dart';
 import '../../../../constants/constants.dart';
 import '../../../../utils/color_utils.dart';
@@ -34,16 +34,11 @@ class AppMenuOptions extends ConsumerWidget {
                         return InkWell(
                           onTap: () {
                             Navigator.pop(context);
-                            // _controller.animateTo(
-                            //   0,
-                            //   duration: const Duration(seconds: 1),
-                            //   curve: Curves.fastOutSlowIn,
-                            // );
                           },
                           child: Text(
                             e.values.first,
                             style: GoogleFonts.outfit(
-                              color: isHovered ? primaryColor : kBlackColor,
+                              color: isHovered ? primaryColor : Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: fontsize,
                             ),
