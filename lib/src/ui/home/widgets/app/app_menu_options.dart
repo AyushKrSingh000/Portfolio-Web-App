@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constants.dart';
-import '../../../../../controllers/hovers_controller.dart';
+import '../../../../utils/hovers_controller.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/constants.dart';

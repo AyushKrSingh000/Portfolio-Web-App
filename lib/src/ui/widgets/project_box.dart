@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/src/routing/router.dart';
 
-import '../src/constants/colors.dart';
-import '../src/utils/color_utils.dart';
+import '../../constants/colors.dart';
+import '../../utils/color_utils.dart';
 
 class ProjectBoxHorizontal extends StatelessWidget {
   String imageName;
@@ -104,8 +104,8 @@ class ProjectBoxVertical extends StatelessWidget {
     return SizedBox(
       child: Column(children: [
         Image(
-          height: MediaQuery.of(context).size.width / 2.2,
-          width: MediaQuery.of(context).size.width / 1.2,
+          height: MediaQuery.of(context).size.width / 2.7,
+          width: MediaQuery.of(context).size.width,
           image: AssetImage('assets/project_images/$imageName'),
         ),
         Column(
@@ -116,7 +116,7 @@ class ProjectBoxVertical extends StatelessWidget {
               style: GoogleFonts.outfit(
                   color: ColorUtils.getColor(
                     context,
-                    textFieldTextColor,
+                    prmaryTextColor,
                   ),
                   fontSize: 30,
                   fontWeight: FontWeight.bold),
@@ -143,21 +143,21 @@ class ProjectBoxVertical extends StatelessWidget {
               height: 20,
             ),
             ElevatedButton(
-                style:
-                    ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
-                onPressed: () {
-                  context.navigateTo(ProjectRoute(projectid: projectid));
-                },
-                child: Text(
-                  "CASE STUDY",
-                  style: GoogleFonts.outfit(
-                      color: ColorUtils.getColor(
-                        context,
-                        textFieldTextColor,
-                      ),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                )),
+              style: ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
+              onPressed: () {
+                // context.navigateTo(ProjectRoute(projectid: projectid));
+              },
+              child: Text(
+                "CASE STUDY",
+                style: GoogleFonts.outfit(
+                    color: ColorUtils.getColor(
+                      context,
+                      textFieldTextColor,
+                    ),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
           ],
         )
       ]),

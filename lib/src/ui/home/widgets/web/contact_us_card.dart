@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constants.dart';
-import '../../../../../icons/CustomIcon.dart';
+import '../../../../constants/icons/CustomIcon.dart';
 import '../../../../constants/colors.dart';
 import '../../../../utils/color_utils.dart';
 

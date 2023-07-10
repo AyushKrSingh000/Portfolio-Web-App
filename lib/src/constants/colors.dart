@@ -6,7 +6,7 @@ const primaryColor = Color(0xffd52941);
 const secondaryColor = Color(0xff990d35);
 const scaffoldColor = AppCustomColor(
   lightThemeColor: Color(0xfffbfaf6),
-  darkThemeColor: Color(0xff001b2e),
+  darkThemeColor: Color(0xff000807),
 );
 const prmaryTextColor = AppCustomColor(
   lightThemeColor: Color(0xff011627),

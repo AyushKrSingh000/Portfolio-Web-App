@@ -9,10 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
-import '../../../controllers/hovers_controller.dart';
+import '../../utils/hovers_controller.dart';
 
-import '../../../icons/CustomIcon.dart';
-import '../../../widgets/skill_box.dart';
+import '../../constants/icons/CustomIcon.dart';
+import '../widgets/skill_box.dart';
 import '../../constants/colors.dart';
 import '../../utils/color_utils.dart';
 
@@ -385,7 +385,7 @@ class _ProjectPageState extends ConsumerState<ProjectPage> {
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(
+                            const SizedBox(
                                 width: 50,
                                 child: Divider(
                                   thickness: 4,

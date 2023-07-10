@@ -6,7 +6,7 @@ import 'package:my_portfolio/src/constants/constants.dart';
 import 'package:my_portfolio/src/utils/color_utils.dart';
 
 import '../../../../../constants.dart';
-import '../../../../../controllers/hovers_controller.dart';
+import '../../../../utils/hovers_controller.dart';
 
 class WebAppMenuOptions extends ConsumerWidget {
   const WebAppMenuOptions({super.key});

@@ -34,6 +34,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
               ? 'assets/lottie/dark_splash.json'
               : 'assets/lottie/light_splash.json',
           fit: BoxFit.fill,
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
         ),
       ),
