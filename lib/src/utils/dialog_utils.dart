@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
 import 'color_utils.dart';
 
 /// shows a bottom sheet
@@ -14,19 +13,38 @@ Future<T?> showPortfolioBottomSheet<T>({
   bool enableDrag = true,
   int topMargin = 0,
 }) =>
-    showDialog<T>(
-      context: context,
-      builder: (_) => Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          color: ColorUtils.getColor(
-            context,
-            scaffoldColor,
-          ),
+    showModalBottomSheet<T>(
+        context: context,
+        enableDrag: enableDrag,
+        useRootNavigator: useRootNavigator,
+        isDismissible: isDismissible,
+        isScrollControlled: isScrollControlled,
+        backgroundColor: Colors.transparent,
+        constraints: const BoxConstraints(
+          maxWidth: 400,
+          maxHeight: 1000,
         ),
-        child: builder(_),
-      ),
-    );
+        builder: (BuildContext context) {
+          return Container(
+            constraints: const BoxConstraints(maxWidth: 500),
+            decoration: BoxDecoration(
+              color: ColorUtils.getColor(
+                context,
+                const AppCustomColor(
+                  lightThemeColor: Colors.white,
+                  darkThemeColor: Color(0xff181818),
+                ),
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: builder(context),
+            ),
+          );
+        });

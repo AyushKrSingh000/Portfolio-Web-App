@@ -101,12 +101,35 @@ class ProjectBoxVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return SizedBox(
       child: Column(children: [
-        Image(
-          height: MediaQuery.of(context).size.width / 2.7,
-          width: MediaQuery.of(context).size.width,
-          image: AssetImage('assets/project_images/$imageName'),
+        const SizedBox(
+          height: 20,
+        ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: size.width / 4,
+              width: size.width / 3.5,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 100,
+                    color: primaryColor.withOpacity(0.6),
+                    offset: const Offset(0, 0),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Image(
+              height: size.width / 2.7,
+              width: size.width,
+              image: AssetImage('assets/project_images/$imageName'),
+            ),
+          ],
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -126,16 +149,16 @@ class ProjectBoxVertical extends StatelessWidget {
               height: 20,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width / 1.2,
+              width: size.width / 1.2,
               child: Text(
                 info,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.outfit(
+                style: GoogleFonts.notoSans(
                   color: ColorUtils.getColor(
                     context,
                     textFieldTextColor,
                   ),
-                  fontSize: 18,
+                  fontSize: size.width < 600 ? 16 : 18,
                 ),
               ),
             ),
@@ -143,18 +166,17 @@ class ProjectBoxVertical extends StatelessWidget {
               height: 20,
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(minimumSize: const Size(250, 60)),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(size.width < 600 ? 200 : 250,
+                      size.width < 600 ? 50 : 60)),
               onPressed: () {
                 // context.navigateTo(ProjectRoute(projectid: projectid));
               },
               child: Text(
                 "CASE STUDY",
                 style: GoogleFonts.outfit(
-                    color: ColorUtils.getColor(
-                      context,
-                      textFieldTextColor,
-                    ),
-                    fontSize: 18,
+                    color: Colors.white,
+                    fontSize: size.width < 600 ? 16 : 18,
                     fontWeight: FontWeight.bold),
               ),
             ),

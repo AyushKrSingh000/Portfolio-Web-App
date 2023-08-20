@@ -20,26 +20,6 @@ class _AboutSectionState extends ConsumerState<AboutSection> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Positioned(
-        //   right: -10,
-        //   top: 120,
-        //   child: Container(
-        //     decoration: const BoxDecoration(
-        //       boxShadow: [
-        //         BoxShadow(
-        //           blurRadius: 400,
-        //           color: Colors.red,
-        //           offset: Offset(
-        //             150,
-        //             0,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     height: 300,
-        //     width: 300,
-        //   ),
-        // ),
         Column(
           children: [
             const SizedBox(
@@ -69,12 +49,12 @@ class _AboutSectionState extends ConsumerState<AboutSection> {
               width: MediaQuery.of(context).size.width / 1.2,
               child: Text(
                 "Hi there! I am a second-year student currently pursuing a degree in Computer Science. I am an aspiring app developer with a passion for creating intuitive and user-friendly mobile experiences. In my free time, I love to code and experiment with new technologies.\n \nI am also a proud winner of the Smart India Hackathon , where I had the opportunity to showcase my skills and develop innovative solutions to real-world problems. I am excited to continue learning and growing as a developer, and I am always open to new opportunities and challenges.",
-                style: GoogleFonts.outfit(
+                style: GoogleFonts.notoSans(
                   color: ColorUtils.getColor(
                     context,
                     textFieldTextColor,
                   ),
-                  fontSize: 18,
+                  fontSize: MediaQuery.sizeOf(context).width < 650 ? 16 : 18,
                   height: 1.5,
                   wordSpacing: 2,
                 ),

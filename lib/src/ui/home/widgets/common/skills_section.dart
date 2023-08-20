@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/src/utils/dialog_utils.dart';
 
+import '../../../../utils/color_utils.dart';
 import '../../../widgets/gradient_text.dart';
 
 class TechStackSection extends ConsumerWidget {
@@ -99,7 +101,7 @@ class TechStackSection extends ConsumerWidget {
                     child: Text(
                       'Building and transforming\ndigital products with a range\nof technologies.',
                       maxLines: 3,
-                      style: GoogleFonts.outfit(
+                      style: GoogleFonts.notoSans(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
                         color: const Color(0xff838388),
@@ -119,7 +121,9 @@ class TechStackSection extends ConsumerWidget {
                       ),
                       backgroundColor: const Color(0xff161617),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      _showSkillsBottomSheet(context);
+                    },
                     child: Text(
                       "Read More",
                       style: GoogleFonts.outfit(
@@ -159,4 +163,103 @@ showSkillDialog(BuildContext context) {
     context: context,
     builder: (context) => Text('Hi AYush'),
   );
+}
+
+_showSkillsBottomSheet(BuildContext context) {
+  return showPortfolioBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    builder: (context) => const SkillBottomSheet(),
+  );
+}
+
+class SkillBottomSheet extends ConsumerStatefulWidget {
+  const SkillBottomSheet({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SkillBottomSheetState();
+}
+
+class _SkillBottomSheetState extends ConsumerState<SkillBottomSheet> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Wrap(
+            direction: Axis.horizontal,
+            alignment: WrapAlignment.start,
+            runSpacing: 10,
+            spacing: 10,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: skills
+                .map(
+                  (e) => GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: ColorUtils.getColor(
+                            context,
+                            const AppCustomColor(
+                              lightThemeColor: Colors.white,
+                              darkThemeColor: Color(0xff181818),
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: ColorUtils.getColor(
+                              context,
+                              AppCustomColor(
+                                darkThemeColor: Colors.white.withOpacity(0.6),
+                                lightThemeColor: const Color(0xff181818),
+                              ),
+                            ),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                'assets/skills/$e.png',
+                                height: 20,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                e,
+                                style: GoogleFonts.outfit(
+                                  fontSize: 16,
+                                  color: ColorUtils.getColor(
+                                    context,
+                                    AppCustomColor(
+                                      darkThemeColor:
+                                          Colors.white.withOpacity(0.6),
+                                      lightThemeColor: Colors.black,
+                                    ),
+                                  ),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+  }
 }
