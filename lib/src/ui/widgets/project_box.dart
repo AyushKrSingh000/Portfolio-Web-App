@@ -111,7 +111,7 @@ class ProjectBoxVertical extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Container(
-              height: size.width / 4,
+              height: size.width / 7,
               width: size.width / 3.5,
               decoration: BoxDecoration(
                 boxShadow: [
@@ -125,8 +125,8 @@ class ProjectBoxVertical extends StatelessWidget {
               ),
             ),
             Image(
-              height: size.width / 2.7,
-              width: size.width,
+              height: size.width / 4,
+              width: size.width / 2,
               image: AssetImage('assets/project_images/$imageName'),
             ),
           ],
@@ -141,7 +141,7 @@ class ProjectBoxVertical extends StatelessWidget {
                     context,
                     prmaryTextColor,
                   ),
-                  fontSize: 30,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -158,7 +158,7 @@ class ProjectBoxVertical extends StatelessWidget {
                     context,
                     textFieldTextColor,
                   ),
-                  fontSize: size.width < 600 ? 16 : 18,
+                  fontSize: size.width < 600 ? 14 : 16,
                 ),
               ),
             ),
@@ -167,7 +167,7 @@ class ProjectBoxVertical extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  minimumSize: Size(size.width < 600 ? 200 : 250,
+                  minimumSize: Size(size.width < 600 ? 180 : 200,
                       size.width < 600 ? 50 : 60)),
               onPressed: () {
                 // context.navigateTo(ProjectRoute(projectid: projectid));
@@ -176,7 +176,7 @@ class ProjectBoxVertical extends StatelessWidget {
                 "CASE STUDY",
                 style: GoogleFonts.outfit(
                     color: Colors.white,
-                    fontSize: size.width < 600 ? 16 : 18,
+                    fontSize: size.width < 600 ? 14 : 16,
                     fontWeight: FontWeight.bold),
               ),
             ),

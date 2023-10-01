@@ -76,7 +76,7 @@ class _ProjectSectionState extends ConsumerState<ProjectSection> {
                 children: [
                   SizedBox(
                     height: size.width > 800
-                        ? 700
+                        ? 600
                         : size.width > 600
                             ? 600
                             : size.width / 1.1 + (size.width < 450 ? 40 : 0),
@@ -96,45 +96,52 @@ class _ProjectSectionState extends ConsumerState<ProjectSection> {
                       itemCount: projects.length,
                     ),
                   ),
-                  if (size.width < 800)
-                    SizedBox(
-                      height: 8,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedIndex = index;
-                                  });
-                                  _pageController.animateToPage(
-                                    selectedIndex,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
-                                  );
-                                },
-                                child: Container(
-                                  height: selectedIndex == index ? 7 : 5,
-                                  width: 10,
-                                  decoration: BoxDecoration(
-                                    color: selectedIndex == index
-                                        ? Colors.white
-                                        : Colors.white.withOpacity(0.6),
-                                    shape: BoxShape.circle,
-                                  ),
+                  SizedBox(
+                    height: 8,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                                _pageController.animateToPage(
+                                  selectedIndex,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
+                              child: Container(
+                                height: selectedIndex == index ? 7 : 5,
+                                width: 10,
+                                decoration: BoxDecoration(
+                                  color: selectedIndex == index
+                                      ? ColorUtils.getColor(
+                                          context,
+                                          const AppCustomColor(
+                                              lightThemeColor: Colors.black,
+                                              darkThemeColor: Colors.white))
+                                      : ColorUtils.getColor(
+                                              context,
+                                              const AppCustomColor(
+                                                  lightThemeColor: Colors.black,
+                                                  darkThemeColor: Colors.white))
+                                          .withOpacity(0.6),
+                                  shape: BoxShape.circle,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        itemCount: projectName.length,
+                          ),
+                        ],
                       ),
-                    )
+                      itemCount: projectName.length,
+                    ),
+                  )
                 ],
               ),
               if (size.width > 800)
