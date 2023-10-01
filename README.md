@@ -21,13 +21,13 @@ This is a Flutter-based web application that serves as your personal project por
 2. Clone this repository to your local machine.
 
 ```
-git clone https://github.com/yourusername/project-portfolio-web-app.git
+git clone https://github.com/AyushKrSingh000/Portfolio-Web-App.git
 ```
 
 3. Navigate to the project directory.
 
 ```
-cd portfolio-web-app
+cd Portfolio-Web-App
 ```
 
 4. Install dependencies.
